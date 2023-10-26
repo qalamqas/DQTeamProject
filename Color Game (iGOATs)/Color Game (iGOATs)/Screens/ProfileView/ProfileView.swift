@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @ObservedObject var viewModel: ProfileViewModel
+    
     var body: some View {
         LazyVStack {
             Image("person.fill")
@@ -46,7 +48,7 @@ struct ProfileView: View {
 
 struct Profile_Previews: PreviewProvider {
     static var previews: some View {
-        TabBarView()
+        TabBarAssembly().build()
     }
 }
 

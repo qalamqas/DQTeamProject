@@ -9,22 +9,23 @@ import SwiftUI
 import Foundation
 
 struct TabBarView: View {
+    @ObservedObject var viewModel: TabBarViewModel
     
     var body: some View {
         TabView {
-            SettingsView()
+            SettingsAssembly().build()
                 .tabItem {
                     Image(systemName: "gearshape")
                     Text("Settings")
                 }
             
-            ProfileView()
+            ProfileAssembly().build()
                 .tabItem {
                     Image(systemName: "person")
                     Text("Profile")
                 }
             
-            AboutProgramView()
+            AboutProgramAssembly().build()
                 .tabItem {
                     Image(systemName: "info.circle")
                     Text("About program")
@@ -35,6 +36,6 @@ struct TabBarView: View {
 
 struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
-         TabBarView()
+        TabBarAssembly().build()
     }
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AboutProgramView: View {
+    @ObservedObject var viewModel: AboutProgramViewModel
+
     var paragraphStyle: NSParagraphStyle {
         let style = NSMutableParagraphStyle()
         style.alignment = .justified
@@ -82,6 +84,6 @@ struct AboutProgramView: View {
 
 struct AboutProgram_Previews: PreviewProvider {
     static var previews: some View {
-        AboutProgramView()
+        AboutProgramAssembly().build()
     }
 }

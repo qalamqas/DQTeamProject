@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
+    @ObservedObject var viewModel: SettingsViewModel
     @State private var button1State = 1
     @State private var button2State = 1
     
@@ -81,7 +81,7 @@ struct SettingsView: View {
                 
                 
                 Button(action: {
-                    
+                    Router.shared.showGameView()
                 }) {
                     HStack{
                         Text("Start")
@@ -146,7 +146,7 @@ struct SettingsView: View {
     
     struct SettingsView_Previews: PreviewProvider {
         static var previews: some View {
-             TabBarView()
+            SettingsAssembly().build()
         }
     }
 

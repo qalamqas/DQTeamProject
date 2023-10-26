@@ -32,6 +32,8 @@
 		62E01D402AEA930B002494EE /* GameAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E01D3F2AEA930B002494EE /* GameAssembly.swift */; };
 		62E01D422AEA9557002494EE /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E01D412AEA9557002494EE /* TabBarViewModel.swift */; };
 		62E01D442AEA9598002494EE /* TabBarAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E01D432AEA9598002494EE /* TabBarAssembly.swift */; };
+		62E01D4A2AEABA0F002494EE /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E01D492AEABA0F002494EE /* Enums.swift */; };
+		62E01D4C2AEAC671002494EE /* CaseIterable+previous+next.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E01D4B2AEAC671002494EE /* CaseIterable+previous+next.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		62E01D3F2AEA930B002494EE /* GameAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAssembly.swift; sourceTree = "<group>"; };
 		62E01D412AEA9557002494EE /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		62E01D432AEA9598002494EE /* TabBarAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAssembly.swift; sourceTree = "<group>"; };
+		62E01D492AEABA0F002494EE /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		62E01D4B2AEAC671002494EE /* CaseIterable+previous+next.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+previous+next.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,11 +97,11 @@
 		0B5C9AC92ACC682A00C51889 /* Color Game (iGOATs) */ = {
 			isa = PBXGroup;
 			children = (
+				62E01D482AEAB9E8002494EE /* Globals */,
 				62E01D2D2AE7D5FB002494EE /* Rooting */,
 				62E01D1F2AE7D112002494EE /* App */,
 				62E01D232AE7D216002494EE /* Screens */,
 				62E01D142AE7B43E002494EE /* Styles */,
-				62E01D1C2AE7B5FE002494EE /* Extensions */,
 				0B5C9AD02ACC682B00C51889 /* Preview Content */,
 			);
 			path = "Color Game (iGOATs)";
@@ -126,6 +130,7 @@
 			children = (
 				62E01D1D2AE7B651002494EE /* ArrayExtension.swift */,
 				62E01D2B2AE7D584002494EE /* ColorExtension.swift */,
+				62E01D4B2AEAC671002494EE /* CaseIterable+previous+next.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,6 +215,15 @@
 			path = Rooting;
 			sourceTree = "<group>";
 		};
+		62E01D482AEAB9E8002494EE /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				62E01D1C2AE7B5FE002494EE /* Extensions */,
+				62E01D492AEABA0F002494EE /* Enums.swift */,
+			);
+			path = Globals;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,6 +305,7 @@
 				62E01D2F2AE7D61A002494EE /* Route.swift in Sources */,
 				0BD284772ADA689E006CCD5E /* AboutProgramView.swift in Sources */,
 				62E01D3A2AEA8FDB002494EE /* AboutProgramAssembly.swift in Sources */,
+				62E01D4C2AEAC671002494EE /* CaseIterable+previous+next.swift in Sources */,
 				0BD284792ADA68BA006CCD5E /* ProfileView.swift in Sources */,
 				62E01D1E2AE7B651002494EE /* ArrayExtension.swift in Sources */,
 				62E01D382AEA8EF8002494EE /* SettingsViewModel.swift in Sources */,
@@ -302,6 +317,7 @@
 				62E01D342AEA8D7E002494EE /* AboutProgramViewModel.swift in Sources */,
 				62E01D192AE7B575002494EE /* GameView.swift in Sources */,
 				62E01D362AEA8DD0002494EE /* ProfileViewModel.swift in Sources */,
+				62E01D4A2AEABA0F002494EE /* Enums.swift in Sources */,
 				0B5C9ACB2ACC682A00C51889 /* Color_Game__iGOATs_App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

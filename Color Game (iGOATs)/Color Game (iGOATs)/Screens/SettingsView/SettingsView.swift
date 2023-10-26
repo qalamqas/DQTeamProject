@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
-    @State private var button1State = 1
-    @State private var button2State = 1
+    @State private var mode: Mode = .colorMindGame
+    @State private var difficulty: Difficulty = .easy
     
     var body: some View {
         NavigationView {
@@ -26,18 +26,15 @@ struct SettingsView: View {
                     .frame(height: 40)
                 
                 Button(action: {
-                    self.button1State += 1
-                    if self.button1State > 2 {
-                        self.button1State = 1
-                    }
+                    mode = mode.next()
                 }) {
                     HStack{
                         Spacer()
                         VStack {
-                            Text(self.button1Text(for: button1State))
+                            Text(self.modeText(for: mode))
                                 .font(.headline)
                                 .fixedSize(horizontal: true, vertical: true)
-                            Text(self.button1Description(for: button1State))
+                            Text(self.modeDescription(for: mode))
                                 .fixedSize(horizontal: true, vertical: true)
                         }
                         Spacer()
@@ -52,18 +49,15 @@ struct SettingsView: View {
                 .cornerRadius(20)
                 
                 Button(action: {
-                    self.button2State += 1
-                    if self.button2State > 3 {
-                        self.button2State = 1
-                    }
+                    difficulty = difficulty.next()
                 }) {
                     HStack {
                         Spacer()
                         VStack {
-                            Text(self.button2Text(for: button2State))
+                            Text(self.difficultyText(for: difficulty))
                                 .font(.headline)
                                 .fixedSize(horizontal: true, vertical: true)
-                            Text(self.button2Description(for: button2State))
+                            Text(self.difficultyDescription(for: difficulty))
                                 .fixedSize(horizontal: true, vertical: true)
                         }
                         Spacer()
@@ -84,7 +78,7 @@ struct SettingsView: View {
                     Router.shared.showGameView()
                 }) {
                     HStack{
-                        Text("Start")
+                        Text("GO")
                     }
                 }
                 .buttonStyle(.borderedProminent)
@@ -95,52 +89,37 @@ struct SettingsView: View {
     }
     
     
-    private func button1Text(for state: Int) -> String {
-        switch state {
-        case 1:
-            return "Normal mode"
-        case 2:
-            return "Colorblind mode"
-        default:
-            return ""
+    private func modeText(for mode: Mode) -> String {
+        switch mode {
+        case .colorMindGame:
+            return "Game mode"
+        case .colorBlindTest:
+            return "Colorblind testing mode"
         }
     }
     
-    private func button1Description(for state: Int) -> String {
-        switch state {
-        case 1:
-            return "Test your attentiveness"
-        case 2:
+    private func modeDescription(for mode: Mode) -> String {
+        switch mode {
+        case .colorMindGame:
+            return "Improve your Colormind"
+        case .colorBlindTest:
             return "Find out if you are colorblind"
-        default:
-            return ""
         }
     }
     
-    private func button2Text(for state: Int) -> String {
-        switch state {
-        case 1:
+    private func difficultyText(for difficulty: Difficulty) -> String {
+        switch difficulty {
+        case .easy:
             return "Easy"
-        case 2:
+        case .medium:
             return "Medium"
-        case 3:
+        case .hard:
             return "Hard"
-        default:
-            return ""
         }
     }
     
-    private func button2Description(for state: Int) -> String {
-        switch state {
-        case 1:
-            return "Choose your difficulty"
-        case 2:
-            return "Choose your difficulty"
-        case 3:
-            return "Choose your difficulty"
-        default:
-            return ""
-        }
+    private func difficultyDescription(for difficalty: Difficulty) -> String {
+        return "Choose difficalty level"
     }
 }
     
@@ -149,4 +128,5 @@ struct SettingsView: View {
             SettingsAssembly().build()
         }
     }
+
 

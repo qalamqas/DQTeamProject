@@ -12,10 +12,17 @@ class GameViewModel: ObservableObject {
     @Published var level: Int = 1
     private let router: Router
     
-    init(router: Router) {
+    private var mode: Mode
+    private var difficulty: Difficulty
+    
+    init(mode: Mode, difficulty: Difficulty, router: Router) {
         //colors = generateRandom(level: level)
         self.router = router
+        self.mode = mode
+        self.difficulty = difficulty
         colors = colorBlind(mode: level)
+        print("MODE: \(mode)")
+        print("DIFFICULTY: \(difficulty)")
     }
     
     private func isCorrect(_ index: Int) -> Bool {

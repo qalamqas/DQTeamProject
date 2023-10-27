@@ -75,7 +75,7 @@ struct SettingsView: View {
                 
                 
                 Button(action: {
-                    Router.shared.showGameView()
+                    Router.shared.showGameView(mode: mode, difficulty: difficulty)
                 }) {
                     HStack{
                         Text("GO")

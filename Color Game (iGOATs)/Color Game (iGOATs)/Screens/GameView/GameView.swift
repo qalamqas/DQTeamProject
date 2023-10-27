@@ -31,5 +31,5 @@ struct GameView: View {
 }
 
 #Preview {
-    GameAssembly().build()
+    GameAssembly().build(for: .colorMindGame, difficulty: .easy)
 }

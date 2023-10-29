@@ -30,6 +30,7 @@ struct InitView: App {
                         }
                     }
             }
+            .preferredColorScheme(.light)
         }
     }
 }

@@ -7,9 +7,18 @@
 
 import Foundation
 
-enum Mode: CaseIterable {
+enum Mode: CaseIterable, CustomStringConvertible {
     case colorMindGame
     case colorBlindTest
+    
+    var description: String {
+        switch self {
+        case .colorMindGame:
+            return "Improve your Colormind"
+        case .colorBlindTest:
+            return "Find out if you are Colorblind"
+        }
+    }
 }
 
 enum Difficulty: CaseIterable {

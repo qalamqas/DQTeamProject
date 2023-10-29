@@ -35,7 +35,7 @@ struct SettingsView: View {
                             Text(self.modeText(for: mode))
                                 .font(.headline)
                                 .fixedSize(horizontal: true, vertical: true)
-                            Text(self.modeDescription(for: mode))
+                            Text(mode.description)
                                 .fixedSize(horizontal: true, vertical: true)
                         }
                         Spacer()
@@ -121,15 +121,6 @@ struct SettingsView: View {
             return "Game mode"
         case .colorBlindTest:
             return "Colorblind testing mode"
-        }
-    }
-    
-    private func modeDescription(for mode: Mode) -> String {
-        switch mode {
-        case .colorMindGame:
-            return "Improve your Colormind"
-        case .colorBlindTest:
-            return "Find out if you are Colorblind"
         }
     }
     

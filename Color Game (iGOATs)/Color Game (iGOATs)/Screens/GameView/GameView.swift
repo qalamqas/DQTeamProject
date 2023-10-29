@@ -14,9 +14,10 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            Text("Level: \(viewModel.level)")
-                .bold()
-                .padding(.bottom, 25)
+            //СПРОСИТЬ у ЯРОСЛАВА
+//            Text("Mode: \(viewModel.mode)")
+//                .bold()
+//                .padding(.bottom, 25)
             
             LazyVGrid(columns: columns) {
                 ForEach(0...15, id: \.self) { index in
@@ -30,6 +31,6 @@ struct GameView: View {
     }
 }
 
-#Preview {
-    GameAssembly().build(for: .colorMindGame, difficulty: .easy)
-}
+//#Preview {
+//    GameAssembly().build(for: .colorMindGame, difficulty: .easy, blindnessType: .blue_yellow)
+//}

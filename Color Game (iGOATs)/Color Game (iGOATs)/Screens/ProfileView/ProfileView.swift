@@ -46,9 +46,9 @@ struct ProfileView: View {
     }
 }
 
-struct Profile_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBarAssembly().build()
-    }
-}
+//struct Profile_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TabBarAssembly().build()
+//    }
+//}
 

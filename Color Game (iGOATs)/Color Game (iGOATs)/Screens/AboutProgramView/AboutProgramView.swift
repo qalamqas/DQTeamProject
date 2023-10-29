@@ -82,8 +82,8 @@ struct AboutProgramView: View {
     }
 }
 
-struct AboutProgram_Previews: PreviewProvider {
-    static var previews: some View {
-        AboutProgramAssembly().build()
-    }
-}
+//struct AboutProgram_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AboutProgramAssembly().build()
+//    }
+//}

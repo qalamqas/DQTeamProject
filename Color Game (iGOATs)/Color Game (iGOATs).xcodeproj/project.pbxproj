@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B5C9ACB2ACC682A00C51889 /* Color_Game__iGOATs_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9ACA2ACC682A00C51889 /* Color_Game__iGOATs_App.swift */; };
 		0B5C9ACD2ACC682A00C51889 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9ACC2ACC682A00C51889 /* SettingsView.swift */; };
 		0B5C9ACF2ACC682B00C51889 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B5C9ACE2ACC682B00C51889 /* Assets.xcassets */; };
 		0B5C9AD22ACC682B00C51889 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B5C9AD12ACC682B00C51889 /* Preview Assets.xcassets */; };
@@ -38,7 +37,6 @@
 
 /* Begin PBXFileReference section */
 		0B5C9AC72ACC682A00C51889 /* Color Game (iGOATs).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Color Game (iGOATs).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B5C9ACA2ACC682A00C51889 /* Color_Game__iGOATs_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color_Game__iGOATs_App.swift; sourceTree = "<group>"; };
 		0B5C9ACC2ACC682A00C51889 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		0B5C9ACE2ACC682B00C51889 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B5C9AD12ACC682B00C51889 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 		62E01D252AE7D316002494EE /* TabBarView */ = {
 			isa = PBXGroup;
 			children = (
-				0B5C9ACA2ACC682A00C51889 /* Color_Game__iGOATs_App.swift */,
 				0BE8C2762ADD1C3B005D0F5A /* TabBarView.swift */,
 				62E01D412AEA9557002494EE /* TabBarViewModel.swift */,
 				62E01D432AEA9598002494EE /* TabBarAssembly.swift */,
@@ -318,7 +315,6 @@
 				62E01D192AE7B575002494EE /* GameView.swift in Sources */,
 				62E01D362AEA8DD0002494EE /* ProfileViewModel.swift in Sources */,
 				62E01D4A2AEABA0F002494EE /* Enums.swift in Sources */,
-				0B5C9ACB2ACC682A00C51889 /* Color_Game__iGOATs_App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@ struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
     @State private var mode: Mode = .colorMindGame
     @State private var difficulty: Difficulty = .easy
+    @State private var blindnessType: BlindnessTypes = .blue_yellow
     
     var body: some View {
         NavigationView {
@@ -71,11 +72,32 @@ struct SettingsView: View {
                 .foregroundColor(.black)
                 .cornerRadius(20)
                 
-
+                Button(action: {
+                    blindnessType = blindnessType.next()
+                }) {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Text(self.blindnessTypeText(for: blindnessType))
+                                .font(.headline)
+                                .fixedSize(horizontal: true, vertical: true)
+                            Text(self.blindnessTypeDescription(for: blindnessType))
+                                .fixedSize(horizontal: true, vertical: true)
+                        }
+                        Spacer()
+                        Text(">")
+                        Spacer()
+                            .frame(width: 60)
+                    }
+                }
+                .frame(width: 350, height: 80)
+                .background(.gray)
+                .foregroundColor(.black)
+                .cornerRadius(20)
                 
                 
                 Button(action: {
-                    Router.shared.showGameView(mode: mode, difficulty: difficulty)
+                    Router.shared.showGameView(mode: mode, difficulty: difficulty, blindnessType: blindnessType)
                 }) {
                     HStack{
                         Text("GO")
@@ -109,6 +131,7 @@ struct SettingsView: View {
     
     private func difficultyText(for difficulty: Difficulty) -> String {
         switch difficulty {
+        case .babyTime: return "Babytime"
         case .easy:
             return "Easy"
         case .medium:
@@ -121,12 +144,24 @@ struct SettingsView: View {
     private func difficultyDescription(for difficalty: Difficulty) -> String {
         return "Choose difficalty level"
     }
-}
     
-    struct SettingsView_Previews: PreviewProvider {
-        static var previews: some View {
-            SettingsAssembly().build()
+    private func blindnessTypeText(for blindnessType: BlindnessTypes) -> String {
+        switch blindnessType {
+        case .blue_yellow: return "Blue-yellow"
+        case .red_green:
+            return "Red-green"
         }
     }
+    
+    private func blindnessTypeDescription(for blindnessType: BlindnessTypes) -> String {
+        return "Choose blindness type"
+    }
+}
+    
+//struct SettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingsAssembly().build()
+//    }
+//}
 
 

@@ -13,7 +13,14 @@ enum Mode: CaseIterable {
 }
 
 enum Difficulty: CaseIterable {
+    case babyTime
     case easy
     case medium
     case hard
 }
+
+enum BlindnessTypes: CaseIterable {
+    case red_green
+    case blue_yellow
+}
+

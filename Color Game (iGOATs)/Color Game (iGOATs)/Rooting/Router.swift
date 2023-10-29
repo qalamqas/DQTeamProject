@@ -28,8 +28,8 @@ final class Router: ObservableObject {
         path.append(.userProfile)
     }
     
-    func showGameView(mode: Mode, difficulty: Difficulty) {
-        path.append(.gameView(mode: mode, difficulty: difficulty))
+    func showGameView(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessTypes) {
+        path.append(.gameView(mode: mode, difficulty: difficulty, blindnessType: blindnessType))
     }
     
     func backToRoot() {

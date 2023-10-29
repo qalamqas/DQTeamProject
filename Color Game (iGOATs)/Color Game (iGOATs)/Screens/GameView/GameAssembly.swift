@@ -8,9 +8,9 @@
 import Foundation
 
 final class GameAssembly {
-    func build(for mode: Mode, difficulty: Difficulty) -> GameView {
+    func build(for mode: Mode, difficulty: Difficulty, blindnessType: BlindnessTypes) -> GameView {
         let router = Router.shared
-        let viewModel = GameViewModel(mode: mode, difficulty: difficulty, router: router)
+        let viewModel = GameViewModel(mode: mode, difficulty: difficulty, blindnessType: blindnessType, router: router)
         return GameView(viewModel: viewModel)
     }
 }

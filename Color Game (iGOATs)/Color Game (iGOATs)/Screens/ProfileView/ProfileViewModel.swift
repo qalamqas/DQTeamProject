@@ -14,7 +14,7 @@ final class ProfileViewModel: ObservableObject {
         self.router = router
     }
     
-    func returnToCart() {
+    func returnToMainScreen() {
         router.backToRoot()
     }
 }

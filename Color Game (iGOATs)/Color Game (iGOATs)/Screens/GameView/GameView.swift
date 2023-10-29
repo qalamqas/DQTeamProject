@@ -36,6 +36,7 @@ struct GameView: View {
     }
 }
 
-//#Preview {
-//    GameAssembly().build(for: .colorMindGame, difficulty: .easy, blindnessType: .blue_yellow)
-//}
+// to show pull request creating example
+#Preview {
+    GameAssembly().build(for: .colorMindGame, difficulty: .easy, blindnessType: .blue_yellow)
+}

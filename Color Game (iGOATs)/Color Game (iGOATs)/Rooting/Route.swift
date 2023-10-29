@@ -12,5 +12,5 @@ enum Route: Hashable {
     case aboutProgram
     case settings
     case userProfile
-    case gameView(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessTypes)
+    case gameView(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType)
 }

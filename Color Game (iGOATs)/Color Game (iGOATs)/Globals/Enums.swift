@@ -19,7 +19,7 @@ enum Difficulty: CaseIterable {
     case hard
 }
 
-enum BlindnessTypes: CaseIterable {
+enum BlindnessType: CaseIterable {
     case red_green
     case blue_yellow
 }

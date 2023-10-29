@@ -6,60 +6,59 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 class GameViewModel: ObservableObject {
-    @Published var colors: [Color] = []
-    //@Published var level: Int = 1
-    @State var difficultyIsActive: Bool = true
     private let router: Router
     
+    @State private var player: AVAudioPlayer?
+    
+    @Published var colors: [Color] = []
     @Published var mode: Mode
     @Published var difficulty: Difficulty
-    @Published var blindnessType: BlindnessTypes
+    @Published var blindnessType: BlindnessType
     
-    init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessTypes, router: Router) {
-        //colors = generateRandom(level: level)
+    init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {
         self.router = router
         self.mode = mode
         self.difficulty = difficulty
         self.blindnessType = blindnessType
-        if self.mode == .colorBlindTest {
-            colors = colorBlind(blindnessType: blindnessType)
-            difficultyIsActive = false
-        } else {
-            colors = colorMind(difficulty: difficulty)
-        }
         
         print("MODE: \(mode)")
         print("DIFFICULTY: \(difficulty)")
         print("BLINDNESS_TYPE: \(blindnessType)")
+        
+        startGame()
     }
     
     private func isCorrect(_ index: Int) -> Bool {
         colors.filter { $0 == colors[index] }.count > 1
     }
     
-//    func proceedUserInput(_ index: Int) {
-//        if isCorrect(index) {
-//            withAnimation(.bouncy(duration: 0.2, extraBounce: 0.2)) {
-//                colors = colorBlind(blindnessType: .red_green)
-//            }
-//        } else {
-//            // Делаем что-то если юзеер ошибся
-//        }
-//    }
+    func startGame() {
+        startRound()
+    }
+    
+    func startRound() {
+        if self.mode == .colorBlindTest {
+            colors = colorBlind(blindnessType: blindnessType)
+        } else {
+            colors = colorMind(difficulty: difficulty)
+        }
+    }
     
     func proceedUserInput(_ index: Int) {
         if isCorrect(index) {
             if difficulty != .hard {difficulty = difficulty.next()}
+            AudioServicesPlaySystemSound(1109)
             withAnimation(.bouncy(duration: 0.2, extraBounce: 0.2)) {
-                colors = colorMind(difficulty: difficulty)
+                startRound()
                 print("MODE: \(mode)")
                 print("DIFFICULTY: \(difficulty)")
                 print("BLINDNESS_TYPE: \(blindnessType)")
             }
         } else {
-            // Делаем что-то если юзеер ошибся
+            AudioServicesPlaySystemSound(1100)
         }
     }
     
@@ -79,7 +78,7 @@ class GameViewModel: ObservableObject {
         return tempArray
     }
     
-    func colorBlind(blindnessType: BlindnessTypes) -> [Color] {
+    func colorBlind(blindnessType: BlindnessType) -> [Color] {
         var temp: Set<Color> = []
         var temp2: Set<Color> = []
         var tempArray: [Color] = []
@@ -108,20 +107,31 @@ class GameViewModel: ObservableObject {
                 tempArray.append(tempArray2[i])
             }
             return tempArray
+            
         case .blue_yellow:
-            while temp.count < 16 {
-                temp.insert(Color(red: .random(in: 0.1...0.9),
-                                  green: .random(in: 0.1...0.9),
-                                  blue: .random(in: 0.1...0.9)))
+            while temp.count < 9 {
+                temp.insert(Color(red: .random(in: 0.1...0.4),
+                                  green: .random(in: 0.1...0.4),
+                                  blue: .random(in: 0.6...1)))
             }
-
+            
             tempArray = Array(temp)
-            tempArray[14] = tempArray[15]
-            tempArray.shuffle()
-            return tempArray
+            tempArray[6] = tempArray[7]
+            
+            while temp2.count < 9 {
+                temp2.insert(Color(red: .random(in: 0.9...1),
+                                  green: .random(in: 0.6...0.9),
+                                  blue: .random(in: 0.0...0.5)))
+            }
+            
+            tempArray2 = Array(temp2)
+            tempArray2[6] = tempArray2[7]
+            for i in 0...7 {
+                tempArray.append(tempArray2[i])
+            }
+             return tempArray
             }
     }
     
     
 }
-

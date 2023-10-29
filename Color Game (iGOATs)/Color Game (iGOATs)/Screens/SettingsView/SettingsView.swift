@@ -11,7 +11,7 @@ struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
     @State private var mode: Mode = .colorMindGame
     @State private var difficulty: Difficulty = .easy
-    @State private var blindnessType: BlindnessTypes = .blue_yellow
+    @State private var blindnessType: BlindnessType = .blue_yellow
     
     var body: some View {
         NavigationView {
@@ -71,6 +71,8 @@ struct SettingsView: View {
                 .background(.gray)
                 .foregroundColor(.black)
                 .cornerRadius(20)
+                .disabled(mode == .colorBlindTest ? true : false)
+                .opacity(mode == .colorBlindTest ? 0.25 : 1)
                 
                 Button(action: {
                     blindnessType = blindnessType.next()
@@ -94,6 +96,8 @@ struct SettingsView: View {
                 .background(.gray)
                 .foregroundColor(.black)
                 .cornerRadius(20)
+                .disabled(mode == .colorMindGame ? true : false)
+                .opacity(mode == .colorMindGame ? 0.25 : 1)
                 
                 
                 Button(action: {
@@ -125,7 +129,7 @@ struct SettingsView: View {
         case .colorMindGame:
             return "Improve your Colormind"
         case .colorBlindTest:
-            return "Find out if you are colorblind"
+            return "Find out if you are Colorblind"
         }
     }
     
@@ -142,10 +146,10 @@ struct SettingsView: View {
     }
     
     private func difficultyDescription(for difficalty: Difficulty) -> String {
-        return "Choose difficalty level"
+        return "Choose difficulty level"
     }
     
-    private func blindnessTypeText(for blindnessType: BlindnessTypes) -> String {
+    private func blindnessTypeText(for blindnessType: BlindnessType) -> String {
         switch blindnessType {
         case .blue_yellow: return "Blue-yellow"
         case .red_green:
@@ -153,7 +157,7 @@ struct SettingsView: View {
         }
     }
     
-    private func blindnessTypeDescription(for blindnessType: BlindnessTypes) -> String {
+    private func blindnessTypeDescription(for blindnessType: BlindnessType) -> String {
         return "Choose blindness type"
     }
 }

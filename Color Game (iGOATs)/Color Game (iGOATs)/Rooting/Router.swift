@@ -31,12 +31,5 @@ final class Router: ObservableObject {
     func showGameView(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType) {
         path.append(.gameView(mode: mode, difficulty: difficulty, blindnessType: blindnessType))
     }
-    
-    func backToRoot() {
-        path.removeAll()
-    }
-    
-    func back() {
-        path.removeLast()
-    }
+
 }

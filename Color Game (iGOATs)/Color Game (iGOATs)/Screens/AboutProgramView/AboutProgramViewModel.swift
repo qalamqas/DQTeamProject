@@ -13,8 +13,5 @@ final class AboutProgramViewModel: ObservableObject {
     init(router: Router) {
         self.router = router
     }
-    
-    func returnToMainScreen() {
-        router.backToRoot()
-    }
+
 }

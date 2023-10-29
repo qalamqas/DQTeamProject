@@ -129,6 +129,7 @@ class GameViewModel: ObservableObject {
             for i in 0...7 {
                 tempArray.append(tempArray2[i])
             }
+             tempArray.shuffle()
              return tempArray
             }
     }

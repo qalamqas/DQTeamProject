@@ -19,6 +19,15 @@ enum Mode: CaseIterable, CustomStringConvertible {
             return "Find out if you are Colorblind"
         }
     }
+    
+    var descriptionScreen: String {
+        switch self {
+        case .colorMindGame:
+            return "ColorMind test"
+        case .colorBlindTest:
+            return "Colorblind"
+        }
+    }
 }
 
 enum Difficulty: CaseIterable {
@@ -26,10 +35,32 @@ enum Difficulty: CaseIterable {
     case easy
     case medium
     case hard
+    
+    var description: String {
+        switch self {
+        case .babyTime:
+            return "Baby plays"
+        case .easy:
+            return "Easy"
+        case .medium:
+            return "Medium"
+        case .hard:
+            return "Hard"
+        }
+    }
 }
 
 enum BlindnessType: CaseIterable {
     case red_green
     case blue_yellow
+    
+    var description: String {
+        switch self {
+        case .red_green:
+            return "Red-green"
+        case .blue_yellow:
+            return "Blue-yellow"
+        }
+    }
 }
 

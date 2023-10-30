@@ -77,46 +77,16 @@ class GameViewModel: ObservableObject {
     func colorMind(difficulty: Difficulty) -> [Color] {
         var temp: Set<Color> = []
         var tempArray: [Color] = []
-        var newTempArray: [Color] = []
         
         while temp.count < 16 {
-            temp.insert(Color(red: .random(in: 0...1),
-                              green: .random(in: 0...1),
-                              blue: .random(in: 0...1)))
+            temp.insert(Color(red: .random(in: 0.1...0.9),
+                              green: .random(in: 0.1...0.9),
+                              blue: .random(in: 0.1...0.9)))
         }
-        
-//        while temp.count < 6 {
-//            temp.insert(Color(red: .random(in: 0.0...0.3),
-//                              green: .random(in: 0.78...1),
-//                              blue: .random(in: 0.0...0.3)))
-//        }
-//        
-//        while temp.count < 9 {
-//            temp.insert(Color(red: .random(in: 0.0...0.3),
-//                              green: .random(in: 0.0...0.3),
-//                              blue: .random(in: 0.78...1)))
-//        }
-//        
-//        while temp.count < 12 {
-//            temp.insert(Color(red: .random(in: 0.78...0.99),
-//                              green: .random(in: 0.78...0.99),
-//                              blue: .random(in: 0.097...0.2)))
-//        }
-//        
-//        while temp.count < 16 {
-//            temp.insert(Color(red: .random(in: 0.6...0.8),
-//                              green: .random(in: 0.0...0.2),
-//                              blue: .random(in: 0.6...0.8)))
-//        }
-
         
         tempArray = Array(temp)
+        tempArray[14] = tempArray[15]
         tempArray.shuffle()
-        for i in 0...15 {
-            newTempArray.append(tempArray[i])
-        }
-        newTempArray[14] = tempArray[15]
-        newTempArray.shuffle()
         return tempArray
     }
     

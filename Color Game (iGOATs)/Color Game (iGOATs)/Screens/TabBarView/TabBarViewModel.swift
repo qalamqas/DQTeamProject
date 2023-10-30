@@ -13,8 +13,4 @@ final class TabBarViewModel: ObservableObject {
     init(router: Router) {
         self.router = router
     }
-    
-    func returnToMainScreen() {
-        router.backToRoot()
-    }
 }

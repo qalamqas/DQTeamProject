@@ -17,11 +17,17 @@ struct GameView: View {
     private let columns = Array(repeating: GridItem(.fixed(60)), count: 4)
     
     var body: some View {
-        LazyVStack {
-            Text("Mode: \(viewModel.mode.description)")
+        VStack {
+            Text("Mode: \(viewModel.mode.descriptionScreen)")
                 .bold()
-                .padding(.bottom, 25)
-            
+                .padding(.bottom, 7)
+            if viewModel.mode == .colorMindGame { Text("Difficalty: \(viewModel.difficulty.description)")
+                    .bold()
+                .padding(.bottom, 7)}
+            if viewModel.mode == .colorBlindTest {Text("Blindness type: \(viewModel.blindnessType.description)")
+                    .bold()
+                .padding(.bottom, 7)}
+
             LazyVGrid(columns: columns) {
                 ForEach(0...15, id: \.self) { index in
                     Button("") {

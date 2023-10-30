@@ -34,13 +34,14 @@ struct GameView: View {
                         viewModel.proceedUserInput(index)
                     }
                     .buttonStyle(ColorButtonStyle(background: viewModel.colors[index], shapeType: viewModel.buttonShape, isBorder: false))
-                    .overlay{
-                    switch viewModel.ifCorrectAnswer {
-                    case 0: Text("")
-                    case 1: Text("❤️")
-                    case 2: Text("💔")
-                    default: Text("")
-                            }
+                    .overlay{ if index == viewModel.correctButtonIndex {
+                        switch viewModel.ifCorrectAnswer {
+                        case 0: Text("")
+                        case 1: Text("❤️")
+                        case 2: Text("💔")
+                        default: Text("")
+                        }
+                    } else { Text("")}
                     }
                 }
             }

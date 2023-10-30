@@ -9,7 +9,11 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel: GameViewModel
-
+    
+    @State var heartSelected = false
+    @State var squareSelected = true
+    @State var circleSelected = false
+    
     private let columns = Array(repeating: GridItem(.fixed(60)), count: 4)
     
     var body: some View {
@@ -29,7 +33,33 @@ struct GameView: View {
                     Button("") {
                         viewModel.proceedUserInput(index)
                     }
-                    .buttonStyle(ColorButtonStyle(background: viewModel.colors[index]))
+                    .buttonStyle(ColorButtonStyle(background: viewModel.colors[index], shapeType: viewModel.buttonShape, isBorder: false))
+                }
+            }
+            LazyHStack {
+                Button(action: {
+                    heartSelected.toggle()
+                    squareSelected = false
+                    circleSelected = false
+                    viewModel.buttonShape = .heart
+                }) {
+                    Image(systemName: heartSelected ? "heart.fill" : "heart")
+                }
+                Button(action: {
+                    squareSelected.toggle()
+                    heartSelected = false
+                    circleSelected = false
+                    viewModel.buttonShape = .square
+                }) {
+                    Image(systemName: squareSelected ? "square.fill" : "square")
+                }
+                Button(action: {
+                    circleSelected.toggle()
+                    heartSelected = false
+                    squareSelected = false
+                    viewModel.buttonShape = .circle
+                }) {
+                    Image(systemName: circleSelected ? "circle.fill" : "circle")
                 }
             }
         }

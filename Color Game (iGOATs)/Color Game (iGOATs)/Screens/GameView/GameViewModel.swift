@@ -17,6 +17,7 @@ class GameViewModel: ObservableObject {
     @Published var mode: Mode
     @Published var difficulty: Difficulty
     @Published var blindnessType: BlindnessType
+    @Published var correctAnswer: Bool = false
     
     init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {
         self.router = router
@@ -32,7 +33,8 @@ class GameViewModel: ObservableObject {
     }
     
     private func isCorrect(_ index: Int) -> Bool {
-        colors.filter { $0 == colors[index] }.count > 1
+        correctAnswer = colors.filter { $0 == colors[index] }.count > 1
+        return correctAnswer
     }
     
     func startGame() {
@@ -40,6 +42,7 @@ class GameViewModel: ObservableObject {
     }
     
     func startRound() {
+        var correctAnswer = false
         if self.mode == .colorBlindTest {
             colors = colorBlind(blindnessType: blindnessType)
         } else {

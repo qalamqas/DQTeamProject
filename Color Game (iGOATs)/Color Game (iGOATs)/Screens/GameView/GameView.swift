@@ -30,13 +30,18 @@ struct GameView: View {
                         viewModel.proceedUserInput(index)
                     }
                     .buttonStyle(ColorButtonStyle(background: viewModel.colors[index]))
+                    .overlay{
+                        if viewModel.correctAnswer {
+                            Text("❤️")} else {
+                                Text("💔")
+                            }
+                    }
                 }
             }
         }
     }
 }
 
-// to show pull request creating example
-#Preview {
-    GameAssembly().build(for: .colorMindGame, difficulty: .easy, blindnessType: .blue_yellow)
-}
+//#Preview {
+//    GameAssembly().build(for: .colorMindGame, difficulty: .easy, blindnessType: .blue_yellow)
+//}

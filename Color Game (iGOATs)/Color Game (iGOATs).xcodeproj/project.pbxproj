@@ -14,8 +14,6 @@
 		0BD284792ADA68BA006CCD5E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD284782ADA68BA006CCD5E /* ProfileView.swift */; };
 		0BE8C2772ADD1C3B005D0F5A /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE8C2762ADD1C3B005D0F5A /* TabBarView.swift */; };
 		0BE8C27B2ADD2873005D0F5A /* CustomUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE8C27A2ADD2873005D0F5A /* CustomUI.swift */; };
-		622D5E772AEE403800557BAE /* generateColorblindPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622D5E762AEE403800557BAE /* generateColorblindPallet.swift */; };
-		622D5E792AEE404B00557BAE /* generateColormindPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622D5E782AEE404B00557BAE /* generateColormindPallet.swift */; };
 		62E01D162AE7B515002494EE /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E01D152AE7B515002494EE /* Styles.swift */; };
 		62E01D192AE7B575002494EE /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E01D182AE7B575002494EE /* GameView.swift */; };
 		62E01D1B2AE7B5BA002494EE /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E01D1A2AE7B5BA002494EE /* GameViewModel.swift */; };
@@ -46,8 +44,6 @@
 		0BD284782ADA68BA006CCD5E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0BE8C2762ADD1C3B005D0F5A /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		0BE8C27A2ADD2873005D0F5A /* CustomUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUI.swift; sourceTree = "<group>"; };
-		622D5E762AEE403800557BAE /* generateColorblindPallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generateColorblindPallet.swift; sourceTree = "<group>"; };
-		622D5E782AEE404B00557BAE /* generateColormindPallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generateColormindPallet.swift; sourceTree = "<group>"; };
 		62E01D152AE7B515002494EE /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		62E01D182AE7B575002494EE /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		62E01D1A2AE7B5BA002494EE /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
@@ -118,15 +114,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		622D5E752AEE3FF500557BAE /* functions */ = {
-			isa = PBXGroup;
-			children = (
-				622D5E762AEE403800557BAE /* generateColorblindPallet.swift */,
-				622D5E782AEE404B00557BAE /* generateColormindPallet.swift */,
-			);
-			path = functions;
-			sourceTree = "<group>";
-		};
 		62E01D142AE7B43E002494EE /* Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +158,6 @@
 			children = (
 				62E01D182AE7B575002494EE /* GameView.swift */,
 				62E01D1A2AE7B5BA002494EE /* GameViewModel.swift */,
-				622D5E752AEE3FF500557BAE /* functions */,
 				62E01D3F2AEA930B002494EE /* GameAssembly.swift */,
 			);
 			path = GameView;
@@ -315,13 +301,11 @@
 				62E01D3E2AEA910E002494EE /* ProfileAssembly.swift in Sources */,
 				62E01D2F2AE7D61A002494EE /* Route.swift in Sources */,
 				0BD284772ADA689E006CCD5E /* AboutProgramView.swift in Sources */,
-				622D5E792AEE404B00557BAE /* generateColormindPallet.swift in Sources */,
 				62E01D3A2AEA8FDB002494EE /* AboutProgramAssembly.swift in Sources */,
 				62E01D4C2AEAC671002494EE /* CaseIterable+previous+next.swift in Sources */,
 				0BD284792ADA68BA006CCD5E /* ProfileView.swift in Sources */,
 				62E01D1E2AE7B651002494EE /* ArrayExtension.swift in Sources */,
 				62E01D382AEA8EF8002494EE /* SettingsViewModel.swift in Sources */,
-				622D5E772AEE403800557BAE /* generateColorblindPallet.swift in Sources */,
 				0B5C9ACD2ACC682A00C51889 /* SettingsView.swift in Sources */,
 				62E01D2A2AE7D4C9002494EE /* MainView.swift in Sources */,
 				62E01D402AEA930B002494EE /* GameAssembly.swift in Sources */,

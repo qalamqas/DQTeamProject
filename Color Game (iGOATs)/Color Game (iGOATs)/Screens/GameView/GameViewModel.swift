@@ -21,6 +21,8 @@ class GameViewModel: ObservableObject {
     @Published var blindnessType: BlindnessType
     @Published var isBorder: Bool = false
     @Published var buttonShape: ShapeType = .square
+    @Published var ifCorrectAnswer = 0
+    @Published var correctButtonIndex: Int?
     
     init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {
         self.router = router
@@ -36,7 +38,12 @@ class GameViewModel: ObservableObject {
     }
     
     private func isCorrect(_ index: Int) -> Bool {
-        colors.filter { $0 == colors[index] }.count > 1
+        let answer = Bool(colors.filter { $0 == colors[index] }.count > 1)
+        if  answer {
+            ifCorrectAnswer = 1} else {
+                ifCorrectAnswer = 2 }
+        correctButtonIndex = index
+        return answer
     }
     
     func startGame() {
@@ -44,6 +51,7 @@ class GameViewModel: ObservableObject {
     }
     
     func startRound() {
+        self.ifCorrectAnswer = 0
         if self.mode == .colorBlindTest {
             colors = colorBlind(blindnessType: blindnessType)
         } else {
@@ -110,6 +118,7 @@ class GameViewModel: ObservableObject {
             for i in 0...7 {
                 tempArray.append(tempArray2[i])
             }
+            tempArray.shuffle()
             return tempArray
             
         case .blue_yellow:

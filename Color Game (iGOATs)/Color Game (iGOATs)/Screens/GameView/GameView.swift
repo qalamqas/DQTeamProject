@@ -23,10 +23,10 @@ struct GameView: View {
                 .padding(.bottom, 7)
             if viewModel.mode == .colorMindGame { Text("Difficalty: \(viewModel.difficulty.description)")
                     .bold()
-                .padding(.bottom, 7)}
+                .padding(.bottom, 60)}
             if viewModel.mode == .colorBlindTest {Text("Blindness type: \(viewModel.blindnessType.description)")
                     .bold()
-                .padding(.bottom, 7)}
+                .padding(.bottom, 60)}
 
             LazyVGrid(columns: columns) {
                 ForEach(0...15, id: \.self) { index in
@@ -34,6 +34,14 @@ struct GameView: View {
                         viewModel.proceedUserInput(index)
                     }
                     .buttonStyle(ColorButtonStyle(background: viewModel.colors[index], shapeType: viewModel.buttonShape, isBorder: false))
+                    .overlay{
+                    switch viewModel.ifCorrectAnswer {
+                    case 0: Text("")
+                    case 1: Text("❤️")
+                    case 2: Text("💔")
+                    default: Text("")
+                            }
+                    }
                 }
             }
             LazyHStack {

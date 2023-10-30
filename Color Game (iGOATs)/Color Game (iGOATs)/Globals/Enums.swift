@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Mode: CaseIterable, CustomStringConvertible {
     case colorMindGame
@@ -31,5 +32,11 @@ enum Difficulty: CaseIterable {
 enum BlindnessType: CaseIterable {
     case red_green
     case blue_yellow
+}
+
+enum ShapeType {
+    case heart
+    case square
+    case circle
 }
 

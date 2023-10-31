@@ -10,6 +10,7 @@
 		0B5C9ACD2ACC682A00C51889 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9ACC2ACC682A00C51889 /* SettingsView.swift */; };
 		0B5C9ACF2ACC682B00C51889 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B5C9ACE2ACC682B00C51889 /* Assets.xcassets */; };
 		0B5C9AD22ACC682B00C51889 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B5C9AD12ACC682B00C51889 /* Preview Assets.xcassets */; };
+		0B9CF56D2AF0DF2F00186FED /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CF56C2AF0DF2F00186FED /* ImagePicker.swift */; };
 		0BD284772ADA689E006CCD5E /* AboutProgramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD284762ADA689E006CCD5E /* AboutProgramView.swift */; };
 		0BD284792ADA68BA006CCD5E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD284782ADA68BA006CCD5E /* ProfileView.swift */; };
 		0BE8C2772ADD1C3B005D0F5A /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE8C2762ADD1C3B005D0F5A /* TabBarView.swift */; };
@@ -40,6 +41,7 @@
 		0B5C9ACC2ACC682A00C51889 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		0B5C9ACE2ACC682B00C51889 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B5C9AD12ACC682B00C51889 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0B9CF56C2AF0DF2F00186FED /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		0BD284762ADA689E006CCD5E /* AboutProgramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutProgramView.swift; sourceTree = "<group>"; };
 		0BD284782ADA68BA006CCD5E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0BE8C2762ADD1C3B005D0F5A /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				0BD284782ADA68BA006CCD5E /* ProfileView.swift */,
 				62E01D352AEA8DD0002494EE /* ProfileViewModel.swift */,
 				62E01D3D2AEA910E002494EE /* ProfileAssembly.swift */,
+				0B9CF56C2AF0DF2F00186FED /* ImagePicker.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 			files = (
 				62E01D422AEA9557002494EE /* TabBarViewModel.swift in Sources */,
 				62E01D442AEA9598002494EE /* TabBarAssembly.swift in Sources */,
+				0B9CF56D2AF0DF2F00186FED /* ImagePicker.swift in Sources */,
 				0BE8C2772ADD1C3B005D0F5A /* TabBarView.swift in Sources */,
 				62E01D162AE7B515002494EE /* Styles.swift in Sources */,
 				62E01D1B2AE7B5BA002494EE /* GameViewModel.swift in Sources */,
@@ -445,9 +449,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Color Game (iGOATs)/Preview Content\"";
-				DEVELOPMENT_TEAM = 596WJLKHF6;
+				DEVELOPMENT_TEAM = Y4XZP9L5BA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -458,7 +463,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Dias.Color-Game--iGOATs-";
+				PRODUCT_BUNDLE_IDENTIFIER = "iGOATs-bundle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -474,9 +479,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Color Game (iGOATs)/Preview Content\"";
-				DEVELOPMENT_TEAM = 596WJLKHF6;
+				DEVELOPMENT_TEAM = Y4XZP9L5BA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -487,7 +493,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Dias.Color-Game--iGOATs-";
+				PRODUCT_BUNDLE_IDENTIFIER = "iGOATs-bundle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

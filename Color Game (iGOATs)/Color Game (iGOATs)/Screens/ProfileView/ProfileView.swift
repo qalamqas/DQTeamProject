@@ -7,18 +7,15 @@
 
 import SwiftUI
 import UIKit
+import Photos
 
 struct ProfileView: View {
     @ObservedObject var viewModel: ProfileViewModel
     @State var selectedImage: UIImage?
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
+    @State private var isImagePickerPresented = false
     
     var body: some View {
         LazyVStack {
-            
             if let image = selectedImage {
                 Image(uiImage: image)
                     .resizable()
@@ -38,16 +35,10 @@ struct ProfileView: View {
             }
             
             Button("Выбрать фото") {
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.delegate = self.makeCoordinator()
-                if let windowScene = UIApplication.shared.connectedScenes
-                    .filter({ $0.activationState == .foregroundActive })
-                    .first as? UIWindowScene {
-                    if let window = windowScene.windows.first {
-                        window.rootViewController?.present(imagePicker, animated: true, completion: nil)
-                    }
-                }
+                isImagePickerPresented = true
+            }
+            .sheet(isPresented: $isImagePickerPresented) {
+                ImagePicker(selectedImage: $selectedImage)
             }
             
             Text("Имя Игрока")
@@ -76,26 +67,4 @@ struct ProfileView: View {
     }
 }
 
-class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var parent: ProfileView
-    
-    init(_ parent: ProfileView) {
-        self.parent = parent
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[.originalImage] as? UIImage {
-            parent.selectedImage = selectedImage
-        }
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
-}
-
-
-//struct Profile_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TabBarAssembly().build()
-//    }
-//}
 

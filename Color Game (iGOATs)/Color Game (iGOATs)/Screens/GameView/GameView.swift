@@ -50,6 +50,7 @@ struct GameView: View {
                             }
                         }
                     }
+                    .disabled(viewModel.ifCorrectAnswer == 1)
                 }
             }
             LazyHStack {

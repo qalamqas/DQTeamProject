@@ -27,21 +27,28 @@ struct GameView: View {
             if viewModel.mode == .colorBlindTest {Text("Blindness type: \(viewModel.blindnessType.description)")
                     .bold()
                 .padding(.bottom, 60)}
-
+            
             LazyVGrid(columns: columns) {
                 ForEach(0...15, id: \.self) { index in
                     Button("") {
                         viewModel.proceedUserInput(index)
                     }
                     .buttonStyle(ColorButtonStyle(background: viewModel.colors[index], shapeType: viewModel.buttonShape, isBorder: false))
-                    .overlay{ if index == viewModel.correctButtonIndex {
+                    .overlay { if index == viewModel.pressedButtonIndex {
                         switch viewModel.ifCorrectAnswer {
                         case 0: Text("")
                         case 1: Text("❤️")
                         case 2: Text("💔")
                         default: Text("")
                         }
-                    } else { Text("")}
+                    } else { Text("") }
+                    }
+                    .overlay {
+                        if viewModel.ifCorrectAnswer == 1 {
+                            if viewModel.colors[index] == viewModel.correctColor {
+                                Text("❤️")
+                            }
+                        }
                     }
                 }
             }

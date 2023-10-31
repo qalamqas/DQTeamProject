@@ -30,10 +30,7 @@ class GameViewModel: ObservableObject {
         self.mode = mode
         self.difficulty = difficulty
         self.blindnessType = blindnessType
-        
-        print("MODE: \(mode)")
-        print("DIFFICULTY: \(difficulty)")
-        print("BLINDNESS_TYPE: \(blindnessType)")
+
         startGame()
     }
     
@@ -68,9 +65,6 @@ class GameViewModel: ObservableObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.startRound()
                 }
-                print("MODE: \(mode)")
-                print("DIFFICULTY: \(difficulty)")
-                print("BLINDNESS_TYPE: \(blindnessType)")
             }
         } else {
             AudioServicesPlaySystemSound(1100)
@@ -78,16 +72,50 @@ class GameViewModel: ObservableObject {
     }
     
     func colorMind(difficulty: Difficulty) -> [Color] {
-        var temp: Set<Color> = []
+//        var temp: Set<Color> = []
+//        var tempArray: [Color] = []
+//        
+//        while temp.count < 16 {
+//            temp.insert(Color(red: .random(in: 0.1...0.9),
+//                              green: .random(in: 0.1...0.9),
+//                              blue: .random(in: 0.1...0.9)))
+//        }
+//        
+//        tempArray = Array(temp)
+//        tempArray[14] = tempArray[15]
+//        tempArray.shuffle()
+//        return tempArray
+        var set1: Set<Color> = []
+        var set2: Set<Color> = []
+        var set3: Set<Color> = []
+        var set4: Set<Color> = []
         var tempArray: [Color] = []
         
-        while temp.count < 16 {
-            temp.insert(Color(red: .random(in: 0.1...0.9),
-                              green: .random(in: 0.1...0.9),
-                              blue: .random(in: 0.1...0.9)))
+        while set1.count < 4 {
+            set1.insert(Color(red: .random(in: 0.85...1),
+                              green: .random(in: 0.85...1),
+                              blue: .random(in: 0.0...0.83)))
         }
         
-        tempArray = Array(temp)
+        while set2.count < 4 {
+            set2.insert(Color(red: .random(in: 0.0...0.78),
+                              green: .random(in: 0.0...0.78),
+                              blue: .random(in: 0.78...1)))
+        }
+        
+        while set3.count < 4 {
+            set3.insert(Color(red: .random(in: 0.78...1),
+                              green: .random(in: 0.0...0.78),
+                              blue: .random(in: 0.0...0.78)))
+        }
+        
+        while set4.count < 4 {
+            set4.insert(Color(red: .random(in: 0.0...0.78),
+                              green: .random(in: 0.78...1),
+                              blue: .random(in: 0.0...0.78)))
+        }
+
+        tempArray = Array(set1.union(set2).union(set3).union(set4))
         tempArray[14] = tempArray[15]
         tempArray.shuffle()
         return tempArray
@@ -102,22 +130,22 @@ class GameViewModel: ObservableObject {
         switch blindnessType {
         case .red_green:
             while temp.count < 9 {
-                temp.insert(Color(red: .random(in: 0.6...0.9),
-                                  green: .random(in: 0.1...0.3),
-                                  blue: .random(in: 0.2...0.33)))
+                temp.insert(Color(red: .random(in: 0.78...1),
+                                  green: .random(in: 0...0.5),
+                                  blue: .random(in: 0...0.5)))
             }
             
             tempArray = Array(temp)
             tempArray[6] = tempArray[7]
             
             while temp2.count < 9 {
-                temp2.insert(Color(red: .random(in: 0.1...0.4),
-                                   green: .random(in: 0.5...0.9),
-                                   blue: .random(in: 0.2...0.5)))
+                temp2.insert(Color(red: .random(in: 0...0.5),
+                                   green: .random(in: 0.78...1),
+                                   blue: .random(in: 0...0.5)))
             }
             
             tempArray2 = Array(temp2)
-            tempArray2[6] = tempArray2[7]
+//            tempArray2[6] = tempArray2[7]
             for i in 0...7 {
                 tempArray.append(tempArray2[i])
             }
@@ -126,22 +154,22 @@ class GameViewModel: ObservableObject {
             
         case .blue_yellow:
             while temp.count < 9 {
-                temp.insert(Color(red: .random(in: 0.1...0.4),
-                                  green: .random(in: 0.1...0.4),
-                                  blue: .random(in: 0.6...1)))
+                temp.insert(Color(red: .random(in: 0...0.5),
+                                  green: .random(in: 0...0.5),
+                                  blue: .random(in: 0.78...1)))
             }
             
             tempArray = Array(temp)
             tempArray[6] = tempArray[7]
             
             while temp2.count < 9 {
-                temp2.insert(Color(red: .random(in: 0.9...1),
-                                   green: .random(in: 0.6...0.9),
-                                   blue: .random(in: 0.0...0.5)))
+                temp2.insert(Color(red: .random(in: 0.85...1),
+                                   green: .random(in: 0.85...1),
+                                   blue: .random(in: 0...0.5)))
             }
             
             tempArray2 = Array(temp2)
-            tempArray2[6] = tempArray2[7]
+//            tempArray2[6] = tempArray2[7]
             for i in 0...7 {
                 tempArray.append(tempArray2[i])
             }

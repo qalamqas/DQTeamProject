@@ -64,7 +64,9 @@ class GameViewModel: ObservableObject {
             if difficulty != .hard {difficulty = difficulty.next()}
             AudioServicesPlaySystemSound(1109)
             withAnimation(.bouncy(duration: 0.2, extraBounce: 0.2)) {
-                startRound()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.startRound()
+                }
                 print("MODE: \(mode)")
                 print("DIFFICULTY: \(difficulty)")
                 print("BLINDNESS_TYPE: \(blindnessType)")

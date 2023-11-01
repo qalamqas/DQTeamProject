@@ -17,73 +17,95 @@ struct AboutProgramView: View {
     }
     
     var body: some View {
-        LazyVStack(spacing: 1) {
-            Text("About program")
-                .font(.largeTitle)
-                .bold()
-                .padding(.bottom, 20)
+        ScrollView {
+            LazyVStack(spacing: 1) {
+                Text("About program")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.bottom, 40)
                 
-            HStack {
-                Text("Program name: ")
-                    .bold()
-                    .padding()
-                Text("Color game")
-                Spacer()
-            }
-            .padding(.leading, 10)
-            
-            HStack {
+                HStack {
+                    VStack {
+                        Image("DiasPhoto")
+                            .resizable()
+                            .frame(width: 150, height: 210)
+                            .cornerRadius(20)
+                        
+                        Text("Bekpayev Dias IOS Developer")
+                            .multilineTextAlignment(.center)
+                    }
+                    
+                    VStack {
+                        Image("QalamqasPhoto")
+                            .resizable()
+                            .frame(width: 150, height: 210)
+                            .cornerRadius(20)
+                        
+                        Text("Orazakyn Qalamqas IOS Developer")
+                            .multilineTextAlignment(.center)
+                    }
+                }
                 
-                Text("Program version: ")
-                    .bold()
+                HStack {
+                    Text("Program name: ")
+                        .bold()
+                        .padding()
+                    Text("Color game")
+                    Spacer()
+                }
+                .padding(.leading, 10)
+                
+                HStack {
+                    
+                    Text("Program version: ")
+                        .bold()
+                        .padding()
+                    Text("0.6")
+                    Spacer()
+                }
+                .padding(.leading, 10)
+                
+                
+                HStack {
+                    Text("Developer Information: ")
+                        .bold()
+                        .padding()
+                    Text("<<iGOATs>>")
+                    Spacer()
+                }
+                .padding(.leading, 10)
+                
+                HStack {
+                    Text("Contact Information: ")
+                        .bold()
+                        .padding()
+                    Text("iGOATs@gmail.com")
+                    Spacer()
+                }
+                .padding(.leading, 10)
+                
+                HStack{
+                    Text("Game rules: ")
+                        .bold()
+                        .padding()
+                    Spacer()
+                }
+                .padding(.leading, 10)
+                
+                JustifiedText("The goal of the game is to find a pair of the same color, while the difficulty of the game is selected by the user.")
                     .padding()
-                Text("0.6")
-                Spacer()
-            }
-            .padding(.leading, 10)
-            
-            
-            HStack {
-                Text("Developer Information: ")
-                    .bold()
+                    .frame(height: 94)
+                
+                JustifiedText("This application is designed to test your visual attention and also test for color blindness if desired. The application was developed as a practice for novice programmers, don’t judge strictly.")
+                    .frame(height: 110)
                     .padding()
-                Text("<<iGOATs>>")
-                Spacer()
+                
             }
-            .padding(.leading, 10)
-            
-            HStack {
-                Text("Contact Information: ")
-                    .bold()
-                    .padding()
-                Text("iGOATs@gmail.com")
-                Spacer()
-            }
-            .padding(.leading, 10)
-            
-            HStack{
-                Text("Game rules: ")
-                    .bold()
-                    .padding()
-                Spacer()
-            }
-            .padding(.leading, 10)
-            
-            JustifiedText("The goal of the game is to find a pair of the same color, while the difficulty of the game is selected by the user")
-                .padding()
-                .frame(height: 94)
-            
-            JustifiedText("This application is designed to test your visual attention and also test for color blindness if desired. The application was developed as a practice for novice programmers, don’t judge strictly.")
-                .frame(height: 110)
-                .padding()
-            
+            .padding(.top, 10)
+            .padding(.bottom, 40)
+            .padding(.trailing, 20)
+            .padding(.leading, 20)
         }
-        .padding()
     }
 }
 
-//struct AboutProgram_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AboutProgramAssembly().build()
-//    }
-//}

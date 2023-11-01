@@ -75,6 +75,8 @@ struct GameView: View {
     }
 }
 
-//#Preview {
-//    GameAssembly().build(for: .colorMindGame, difficulty: .easy, blindnessType: .blue_yellow)
+//struct AboutProgram_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GameAssembly().build(for: .colorMindGame, difficulty: .easy, blindnessType: .blue_yellow)
+//    }
 //}

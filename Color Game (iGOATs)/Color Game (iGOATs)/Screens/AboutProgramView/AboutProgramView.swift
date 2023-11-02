@@ -28,8 +28,10 @@ struct AboutProgramView: View {
                     VStack {
                         Image("DiasPhoto")
                             .resizable()
+                            .scaledToFill()
                             .frame(width: 150, height: 210)
                             .cornerRadius(20)
+                            
                         
                         Text("Bekpayev Dias IOS Developer")
                             .multilineTextAlignment(.center)
@@ -38,8 +40,10 @@ struct AboutProgramView: View {
                     VStack {
                         Image("QalamqasPhoto")
                             .resizable()
+                            .scaledToFill()
                             .frame(width: 150, height: 210)
                             .cornerRadius(20)
+                            
                         
                         Text("Orazakyn Qalamqas IOS Developer")
                             .multilineTextAlignment(.center)

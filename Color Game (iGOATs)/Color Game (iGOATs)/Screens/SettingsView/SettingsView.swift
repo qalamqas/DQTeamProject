@@ -15,105 +15,107 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
-            LazyVStack {
-                Text("Settings")
-                    .font(.largeTitle)
-                    .bold()
-                Spacer()
-                    .frame(height: 5)
-                
-                Text("Challenge your color vision.")
-                Spacer()
-                    .frame(height: 40)
-                
-                Button(action: {
-                    mode = mode.next()
-                }) {
-                    HStack{
-                        Spacer()
-                        VStack {
-                            Text(self.modeText(for: mode))
-                                .font(.headline)
-                                .fixedSize(horizontal: true, vertical: true)
-                            Text(mode.description)
-                                .fixedSize(horizontal: true, vertical: true)
+            ZStack {
+                BackgroundView()
+                LazyVStack {
+                    Text("Settings")
+                        .font(.largeTitle)
+                        .bold()
+                    Spacer()
+                        .frame(height: 5)
+                    
+                    Text("Challenge your color vision.")
+                    Spacer()
+                        .frame(height: 40)
+                    
+                    Button(action: {
+                        mode = mode.next()
+                    }) {
+                        HStack{
+                            Spacer()
+                            VStack {
+                                Text(self.modeText(for: mode))
+                                    .font(.headline)
+                                    .fixedSize(horizontal: true, vertical: true)
+                                Text(mode.description)
+                                    .fixedSize(horizontal: true, vertical: true)
+                            }
+                            Spacer()
+                            Text(">")
+                            Spacer()
+                                .frame(width: 60)
                         }
-                        Spacer()
-                        Text(">")
-                        Spacer()
-                            .frame(width: 60)
                     }
-                }
-                .frame(width: 350, height: 80)
-                .background(.gray)
-                .foregroundColor(.black)
-                .cornerRadius(20)
-                
-                Button(action: {
-                    difficulty = difficulty.next()
-                }) {
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Text(self.difficultyText(for: difficulty))
-                                .font(.headline)
-                                .fixedSize(horizontal: true, vertical: true)
-                            Text(self.difficultyDescription(for: difficulty))
-                                .fixedSize(horizontal: true, vertical: true)
+                    .frame(width: 350, height: 80)
+                    .background(.gray)
+                    .foregroundColor(.black)
+                    .cornerRadius(20)
+                    
+                    Button(action: {
+                        difficulty = difficulty.next()
+                    }) {
+                        HStack {
+                            Spacer()
+                            VStack {
+                                Text(self.difficultyText(for: difficulty))
+                                    .font(.headline)
+                                    .fixedSize(horizontal: true, vertical: true)
+                                Text(self.difficultyDescription(for: difficulty))
+                                    .fixedSize(horizontal: true, vertical: true)
+                            }
+                            Spacer()
+                            Text(">")
+                            Spacer()
+                                .frame(width: 60)
                         }
-                        Spacer()
-                        Text(">")
-                        Spacer()
-                            .frame(width: 60)
                     }
-                }
-                .frame(width: 350, height: 80)
-                .background(.gray)
-                .foregroundColor(.black)
-                .cornerRadius(20)
-                .disabled(mode == .colorBlindTest ? true : false)
-                .opacity(mode == .colorBlindTest ? 0.25 : 1)
-                
-                Button(action: {
-                    blindnessType = blindnessType.next()
-                }) {
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Text(self.blindnessTypeText(for: blindnessType))
-                                .font(.headline)
-                                .fixedSize(horizontal: true, vertical: true)
-                            Text(self.blindnessTypeDescription(for: blindnessType))
-                                .fixedSize(horizontal: true, vertical: true)
+                    .frame(width: 350, height: 80)
+                    .background(.gray)
+                    .foregroundColor(.black)
+                    .cornerRadius(20)
+                    .disabled(mode == .colorBlindTest ? true : false)
+                    .opacity(mode == .colorBlindTest ? 0.25 : 1)
+                    
+                    Button(action: {
+                        blindnessType = blindnessType.next()
+                    }) {
+                        HStack {
+                            Spacer()
+                            VStack {
+                                Text(self.blindnessTypeText(for: blindnessType))
+                                    .font(.headline)
+                                    .fixedSize(horizontal: true, vertical: true)
+                                Text(self.blindnessTypeDescription(for: blindnessType))
+                                    .fixedSize(horizontal: true, vertical: true)
+                            }
+                            Spacer()
+                            Text(">")
+                            Spacer()
+                                .frame(width: 60)
                         }
-                        Spacer()
-                        Text(">")
-                        Spacer()
-                            .frame(width: 60)
                     }
-                }
-                .frame(width: 350, height: 80)
-                .background(.gray)
-                .foregroundColor(.black)
-                .cornerRadius(20)
-                .disabled(mode == .colorMindGame ? true : false)
-                .opacity(mode == .colorMindGame ? 0.25 : 1)
-                
-                
-                Button(action: {
-                    Router.shared.showGameView(mode: mode, difficulty: difficulty, blindnessType: blindnessType)
-                }) {
-                    HStack{
-                        Text("GO")
+                    .frame(width: 350, height: 80)
+                    .background(.gray)
+                    .foregroundColor(.black)
+                    .cornerRadius(20)
+                    .disabled(mode == .colorMindGame ? true : false)
+                    .opacity(mode == .colorMindGame ? 0.25 : 1)
+                    
+                    
+                    Button(action: {
+                        Router.shared.showGameView(mode: mode, difficulty: difficulty, blindnessType: blindnessType)
+                    }) {
+                        HStack{
+                            Text("GO")
+                        }
                     }
+                    .buttonStyle(.borderedProminent)
+                    .frame(width: 350, height: 70)
+                    .cornerRadius(20)
                 }
-                .buttonStyle(.borderedProminent)
-                .frame(width: 350, height: 70)
-                .cornerRadius(20)
             }
         }
     }
-    
     
     private func modeText(for mode: Mode) -> String {
         switch mode {
@@ -153,6 +155,10 @@ struct SettingsView: View {
     }
 }
     
-
+struct Settings_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsAssembly().build()
+    }
+}
 
 

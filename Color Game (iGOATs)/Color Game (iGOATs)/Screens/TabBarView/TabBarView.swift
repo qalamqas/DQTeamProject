@@ -18,18 +18,21 @@ struct TabBarView: View {
                     Image(systemName: "gearshape")
                     Text("Settings")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
             
             ProfileAssembly().build()
                 .tabItem {
                     Image(systemName: "person")
                     Text("Profile")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
             
             AboutProgramAssembly().build()
                 .tabItem {
                     Image(systemName: "info.circle")
                     Text("About program")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
         }
     }
 }

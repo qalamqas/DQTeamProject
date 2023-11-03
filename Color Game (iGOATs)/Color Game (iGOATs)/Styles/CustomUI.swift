@@ -19,6 +19,7 @@ struct JustifiedText: UIViewRepresentable {
         view.numberOfLines = 0
         view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         view.text = value
+        view.textColor = .yellow
         return view
     }
 

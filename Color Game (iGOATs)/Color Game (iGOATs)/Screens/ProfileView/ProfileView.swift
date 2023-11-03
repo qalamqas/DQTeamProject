@@ -77,6 +77,7 @@ struct ProfileView: View {
                     .multilineTextAlignment(.center)
             }
             .padding()
+            .foregroundColor(Color(red: 0.0546875, green: 0.046875, blue: 0.1953125))
         }
     }
 }

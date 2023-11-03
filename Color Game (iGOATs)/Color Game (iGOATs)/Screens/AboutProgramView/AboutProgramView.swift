@@ -91,13 +91,13 @@ struct AboutProgramView: View {
                 HStack{
                     Text("Game rules: ")
                         .bold()
-                        .padding()
-                    Spacer()
+                        .padding(3)
+                    //Spacer()
                 }
                 .padding(.leading, 10)
                 
                 JustifiedText("The goal of the game is to find a pair of the same color, while the difficulty of the game is selected by the user.")
-                    .padding()
+                    .padding(3)
                     .frame(height: 94)
                 
                 JustifiedText("This application is designed to test your visual attention and also test for color blindness if desired. The application was developed as a practice for novice programmers, don’t judge strictly.")
@@ -109,7 +109,9 @@ struct AboutProgramView: View {
             .padding(.bottom, 40)
             .padding(.trailing, 20)
             .padding(.leading, 20)
-        }
+        }.background(Color(red: 0.28515625, green: 0.3671875, blue: 0.328125))
+            . foregroundColor(.white)
     }
+    
 }
 

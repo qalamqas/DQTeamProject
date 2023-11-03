@@ -47,7 +47,7 @@ struct SettingsView: View {
                         }
                     }
                     .frame(width: 350, height: 80)
-                    .background(.gray)
+                    .background(.yellow)
                     .foregroundColor(.black)
                     .cornerRadius(20)
                     
@@ -70,7 +70,7 @@ struct SettingsView: View {
                         }
                     }
                     .frame(width: 350, height: 80)
-                    .background(.gray)
+                    .background(.mint)
                     .foregroundColor(.black)
                     .cornerRadius(20)
                     .disabled(mode == .colorBlindTest ? true : false)
@@ -95,7 +95,7 @@ struct SettingsView: View {
                         }
                     }
                     .frame(width: 350, height: 80)
-                    .background(.gray)
+                    .background(.green)
                     .foregroundColor(.black)
                     .cornerRadius(20)
                     .disabled(mode == .colorMindGame ? true : false)
@@ -155,10 +155,10 @@ struct SettingsView: View {
     }
 }
     
-struct Settings_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsAssembly().build()
-    }
-}
+//struct Settings_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingsAssembly().build()
+//    }
+//}
 
 

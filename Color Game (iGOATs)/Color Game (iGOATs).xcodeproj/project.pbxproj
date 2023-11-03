@@ -103,7 +103,6 @@
 				62E01D2D2AE7D5FB002494EE /* Rooting */,
 				62E01D1F2AE7D112002494EE /* App */,
 				62E01D232AE7D216002494EE /* Screens */,
-				0BCB827E2AF382BD006D0EB0 /* BackgroundView.swift */,
 				62E01D142AE7B43E002494EE /* Styles */,
 				0B5C9AD02ACC682B00C51889 /* Preview Content */,
 			);
@@ -122,6 +121,7 @@
 		62E01D142AE7B43E002494EE /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				0BCB827E2AF382BD006D0EB0 /* BackgroundView.swift */,
 				62E01D152AE7B515002494EE /* Styles.swift */,
 				0BE8C27A2ADD2873005D0F5A /* CustomUI.swift */,
 			);

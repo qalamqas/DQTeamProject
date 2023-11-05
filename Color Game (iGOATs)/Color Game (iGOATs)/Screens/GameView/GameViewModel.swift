@@ -103,33 +103,53 @@ class GameViewModel: ObservableObject {
         var set4: Set<Color> = []
         let result: [Color]
         
-        while set1.count < 6 {
+        while set1.count < 12 {
             set1.insert(Color.randomYellow())
         }
-        while set2.count < 6 {
+        while set2.count < 12 {
             set2.insert(Color.randomRed())
         }
-        while set3.count < 6 {
+        while set3.count < 12 {
             set3.insert(Color.randomBlue())
         }
-        while set4.count < 6 {
+        while set4.count < 12 {
             set4.insert(Color.randomGreen())
         }
-
-        tempArray = Array(set1.union(set2).union(set3).union(set4))
         
         switch difficulty {
-        case .babyTime1: result = babyTime1(colors: tempArray)
-        case .babyTime2: result = babyTime2(colors: tempArray)
-        case .easy1: result = easy1(colors: tempArray)
-        case .easy2: result = easy2(colors: tempArray)
-        case .easy3: result = easy3(colors: tempArray)
-        case .medium1: result = medium1(colors: tempArray)
-        case .medium2: result = medium2(colors: tempArray)
-        case .medium3: result = medium3(colors: tempArray)
-        case .hard1: result = hard1(colors: tempArray)
-        case .hard2: result = hard2(colors: tempArray)
-        case .hard3: result = hard3(colors: tempArray)
+        case .babyTime1: 
+            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            result = babyTime1(colors: tempArray)
+        case .babyTime2: 
+            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            result = babyTime2(colors: tempArray)
+        case .easy1: 
+            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            result = easy1(colors: tempArray)
+        case .easy2: 
+            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            result = easy2(colors: tempArray)
+        case .easy3: 
+            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            result = easy3(colors: tempArray)
+        case .medium1: 
+            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            result = medium1(colors: tempArray)
+        case .medium2: 
+            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            result = medium2(colors: tempArray)
+        case .medium3: 
+            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            result = medium3(colors: tempArray)
+        case .hard1: 
+            tempArray = Array(set1.union(set2));
+            result = hard1(colors: tempArray)
+        case .hard2: 
+            tempArray = Array(set3.union(set4));
+            result = hard2(colors: tempArray)
+        case .hard3: 
+            tempArray = Array(set1.union(set4));
+            result = hard3(colors: tempArray)
         }
         
         return result

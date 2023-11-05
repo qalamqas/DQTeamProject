@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
     @State private var mode: Mode = .colorMindGame
-    @State private var difficulty: Difficulty = .easy
+    @State private var difficulty: Difficulty = .babyTime1
     @State private var blindnessType: BlindnessType = .blue_yellow
     
     var body: some View {
@@ -128,12 +128,12 @@ struct SettingsView: View {
     
     private func difficultyText(for difficulty: Difficulty) -> String {
         switch difficulty {
-        case .babyTime: return "Babytime"
-        case .easy:
+        case .babyTime1, .babyTime2: return "Babytime"
+        case .easy1, .easy2, .easy3:
             return "Easy"
-        case .medium:
+        case .medium1, .medium2, .medium3:
             return "Medium"
-        case .hard:
+        case .hard1, .hard2, .hard3:
             return "Hard"
         }
     }

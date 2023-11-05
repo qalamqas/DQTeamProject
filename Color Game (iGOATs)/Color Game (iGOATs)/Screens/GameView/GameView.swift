@@ -14,9 +14,8 @@ struct GameView: View {
     @State var squareSelected = true
     @State var circleSelected = false
     
-    private let columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-    
-    var body: some View {
+//    private let columns = Array(repeating: GridItem(.fixed(60)), count: 2)
+    var body: some View {        
         ZStack {
             BackgroundView()
             VStack {
@@ -36,8 +35,8 @@ struct GameView: View {
                     VStack {
                         Spacer()
                             .frame(height: 30)
-                        LazyVGrid(columns: columns) {
-                            ForEach(0...15, id: \.self) { index in
+                        LazyVGrid(columns: viewModel.columns) {
+                            ForEach(0...viewModel.shapeCount - 1, id: \.self) { index in
                                 Button("") {
                                     viewModel.proceedUserInput(index)
                                 }

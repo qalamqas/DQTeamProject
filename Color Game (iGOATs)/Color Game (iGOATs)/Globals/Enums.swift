@@ -32,20 +32,27 @@ enum Mode: CaseIterable, CustomStringConvertible {
 }
 
 enum Difficulty: CaseIterable {
-    case babyTime
-    case easy
-    case medium
-    case hard
+    case babyTime1
+    case babyTime2
+    case easy1
+    case easy2
+    case easy3
+    case medium1
+    case medium2
+    case medium3
+    case hard1
+    case hard2
+    case hard3
     
     var description: String {
         switch self {
-        case .babyTime:
+        case .babyTime1, .babyTime2:
             return "Baby plays"
-        case .easy:
+        case .easy1, .easy2, .easy3:
             return "Easy"
-        case .medium:
+        case .medium1, .medium2, .medium3:
             return "Medium"
-        case .hard:
+        case .hard1, .hard2, .hard3:
             return "Hard"
         }
     }

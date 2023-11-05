@@ -8,6 +8,8 @@
 import Foundation
 
 final class SettingsViewModel: ObservableObject {
+    @Published var gamesPlayed: Int = 0
+    
     private let router: Router
     
     init(router: Router) {

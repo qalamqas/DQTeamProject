@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct InitView: App {
     @ObservedObject var router = Router.shared
+    @StateObject private var settingsViewModel = SettingsViewModel(router: Router.shared)
     
     var body: some Scene {
         WindowGroup {
@@ -31,6 +32,7 @@ struct InitView: App {
                     }
             }
             .preferredColorScheme(.light)
+            .environmentObject(settingsViewModel)
         }
     }
 }

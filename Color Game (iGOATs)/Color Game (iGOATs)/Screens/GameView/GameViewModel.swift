@@ -67,10 +67,10 @@ class GameViewModel: ObservableObject {
         case .easy2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .easy3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .medium1: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .medium2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 5)
-        case .medium3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 6)
+        case .medium2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .medium3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .hard1: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 5)
+        case .hard2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .hard3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         }
         
@@ -97,12 +97,16 @@ class GameViewModel: ObservableObject {
     }
     
     func colorMind(difficulty: Difficulty) -> [Color] {
+        var set0: Set<Color> = []
         var set1: Set<Color> = []
         var set2: Set<Color> = []
         var set3: Set<Color> = []
         var set4: Set<Color> = []
         let result: [Color]
-        
+ 
+        while set0.count < 12 {
+            set0.insert(Color.random())
+        }
         while set1.count < 12 {
             set1.insert(Color.randomYellow())
         }
@@ -118,34 +122,34 @@ class GameViewModel: ObservableObject {
         
         switch difficulty {
         case .babyTime1: 
-            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
             result = babyTime1(colors: tempArray)
         case .babyTime2: 
-            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
             result = babyTime2(colors: tempArray)
         case .easy1: 
-            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
             result = easy1(colors: tempArray)
         case .easy2: 
-            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
             result = easy2(colors: tempArray)
         case .easy3: 
-            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
             result = easy3(colors: tempArray)
         case .medium1: 
-            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
             result = medium1(colors: tempArray)
         case .medium2: 
-            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
             result = medium2(colors: tempArray)
         case .medium3: 
-            tempArray = Array(set1.union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
             result = medium3(colors: tempArray)
         case .hard1: 
-            tempArray = Array(set1.union(set2));
+            tempArray = Array(set1.union(set2).union(set3));
             result = hard1(colors: tempArray)
         case .hard2: 
-            tempArray = Array(set3.union(set4));
+            tempArray = Array(set2.union(set3).union(set4));
             result = hard2(colors: tempArray)
         case .hard3: 
             tempArray = Array(set1.union(set4));

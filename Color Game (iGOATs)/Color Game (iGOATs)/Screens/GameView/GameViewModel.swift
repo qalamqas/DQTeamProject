@@ -24,6 +24,10 @@ class GameViewModel: ObservableObject {
     @Published var ifCorrectAnswer = 0
     @Published var pressedButtonIndex: Int?
     @Published var correctColor: Color?
+    var temp: Set<Color> = []
+    var temp2: Set<Color> = []
+    var tempArray: [Color] = []
+    var tempArray2: [Color] = []
     
     init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {
         self.router = router
@@ -72,47 +76,26 @@ class GameViewModel: ObservableObject {
     }
     
     func colorMind(difficulty: Difficulty) -> [Color] {
-//        var temp: Set<Color> = []
-//        var tempArray: [Color] = []
-//        
-//        while temp.count < 16 {
-//            temp.insert(Color(red: .random(in: 0.1...0.9),
-//                              green: .random(in: 0.1...0.9),
-//                              blue: .random(in: 0.1...0.9)))
-//        }
-//        
-//        tempArray = Array(temp)
-//        tempArray[14] = tempArray[15]
-//        tempArray.shuffle()
-//        return tempArray
         var set1: Set<Color> = []
         var set2: Set<Color> = []
         var set3: Set<Color> = []
         var set4: Set<Color> = []
-        var tempArray: [Color] = []
+//        var tempArray: [Color] = []
         
         while set1.count < 4 {
-            set1.insert(Color(red: .random(in: 0.85...1),
-                              green: .random(in: 0.85...1),
-                              blue: .random(in: 0.0...0.83)))
+            set1.insert(Color.randomYellow())
         }
         
         while set2.count < 4 {
-            set2.insert(Color(red: .random(in: 0.0...0.78),
-                              green: .random(in: 0.0...0.78),
-                              blue: .random(in: 0.78...1)))
+            set2.insert(Color.randomRed())
         }
         
         while set3.count < 4 {
-            set3.insert(Color(red: .random(in: 0.78...1),
-                              green: .random(in: 0.0...0.78),
-                              blue: .random(in: 0.0...0.78)))
+            set3.insert(Color.randomBlue())
         }
         
         while set4.count < 4 {
-            set4.insert(Color(red: .random(in: 0.0...0.78),
-                              green: .random(in: 0.78...1),
-                              blue: .random(in: 0.0...0.78)))
+            set4.insert(Color.randomGreen())
         }
 
         tempArray = Array(set1.union(set2).union(set3).union(set4))
@@ -122,30 +105,20 @@ class GameViewModel: ObservableObject {
     }
     
     func colorBlind(blindnessType: BlindnessType) -> [Color] {
-        var temp: Set<Color> = []
-        var temp2: Set<Color> = []
-        var tempArray: [Color] = []
-        var tempArray2: [Color] = []
-        
         switch blindnessType {
         case .red_green:
-            while temp.count < 9 {
-                temp.insert(Color(red: .random(in: 0.78...1),
-                                  green: .random(in: 0...0.5),
-                                  blue: .random(in: 0...0.5)))
+            while temp.count < 8 {
+                temp.insert(Color.randomRed())
             }
-            
             tempArray = Array(temp)
-            tempArray[6] = tempArray[7]
+            tempArray[7] = tempArray[6]
             
-            while temp2.count < 9 {
-                temp2.insert(Color(red: .random(in: 0...0.5),
-                                   green: .random(in: 0.78...1),
-                                   blue: .random(in: 0...0.5)))
+            while temp2.count < 8 {
+                temp2.insert(Color.randomGreen())
             }
-            
+
             tempArray2 = Array(temp2)
-//            tempArray2[6] = tempArray2[7]
+            
             for i in 0...7 {
                 tempArray.append(tempArray2[i])
             }
@@ -153,28 +126,23 @@ class GameViewModel: ObservableObject {
             return tempArray
             
         case .blue_yellow:
-            while temp.count < 9 {
-                temp.insert(Color(red: .random(in: 0...0.5),
-                                  green: .random(in: 0...0.5),
-                                  blue: .random(in: 0.78...1)))
+            while temp.count < 8 {
+                temp.insert(Color.randomBlue())
             }
-            
             tempArray = Array(temp)
-            tempArray[6] = tempArray[7]
+            tempArray[7] = tempArray[6]
             
-            while temp2.count < 9 {
-                temp2.insert(Color(red: .random(in: 0.85...1),
-                                   green: .random(in: 0.85...1),
-                                   blue: .random(in: 0...0.5)))
+            while temp2.count < 8 {
+                temp2.insert(Color.randomYellow())
             }
-            
+
             tempArray2 = Array(temp2)
-//            tempArray2[6] = tempArray2[7]
+            
             for i in 0...7 {
                 tempArray.append(tempArray2[i])
             }
-             tempArray.shuffle()
-             return tempArray
+            tempArray.shuffle()
+            return tempArray
             }
     }
     

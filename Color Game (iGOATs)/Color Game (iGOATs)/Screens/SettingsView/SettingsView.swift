@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject var viewModel: SettingsViewModel
+    @EnvironmentObject var settingsViewModel: SettingsViewModel
     @State private var mode: Mode = .colorMindGame
     @State private var difficulty: Difficulty = .babyTime1
     @State private var blindnessType: BlindnessType = .blue_yellow
@@ -103,6 +103,7 @@ struct SettingsView: View {
                     
                     
                     Button(action: {
+                        settingsViewModel.gamesPlayed += 1
                         Router.shared.showGameView(mode: mode, difficulty: difficulty, blindnessType: blindnessType)
                     }) {
                         HStack{

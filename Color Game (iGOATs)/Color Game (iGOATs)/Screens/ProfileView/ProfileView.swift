@@ -11,8 +11,10 @@ import Photos
 
 struct ProfileView: View {
     @ObservedObject var viewModel: ProfileViewModel
+    @EnvironmentObject var settingsViewModel: SettingsViewModel
     @State var selectedImage: UIImage?
     @State private var isImagePickerPresented = false
+    @State private var playerName = ""
     
     var body: some View {
         ZStack {
@@ -42,14 +44,14 @@ struct ProfileView: View {
                 .sheet(isPresented: $isImagePickerPresented) {
                     ImagePicker(selectedImage: $selectedImage)
                 }
-                .foregroundColor(.yellow)
                 
-                Text("Player name")
+                TextField("Player name", text: $playerName)
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.top, 10)
+                    .multilineTextAlignment(.center)
                 
-                Text("Games played: 100")
+                Text("Games played: \(settingsViewModel.gamesPlayed)")
                     .font(.headline)
                     .padding(.top, 5)
                 

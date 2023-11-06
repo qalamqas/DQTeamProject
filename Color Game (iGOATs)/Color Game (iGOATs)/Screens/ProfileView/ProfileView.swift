@@ -55,11 +55,11 @@ struct ProfileView: View {
                     .font(.headline)
                     .padding(.top, 5)
                 
-                Text("Total number of victories: 75")
+                Text("Total number of round wins: 75")
                     .font(.headline)
                     .padding(.top, 5)
                 
-                Text("Total number of defeats: 30")
+                Text("Total number of lost lives: 30")
                     .font(.headline)
                     .padding(.top, 5)
                 

@@ -57,10 +57,10 @@ struct SettingsView: View {
                         HStack {
                             Spacer()
                             VStack {
-                                Text(self.difficultyText(for: difficulty))
+                                Text(self.difficultyDescription(for: difficulty))
                                     .font(.headline)
                                     .fixedSize(horizontal: true, vertical: true)
-                                Text(self.difficultyDescription(for: difficulty))
+                                Text(self.difficulty.description)
                                     .fixedSize(horizontal: true, vertical: true)
                             }
                             Spacer()
@@ -127,17 +127,17 @@ struct SettingsView: View {
         }
     }
     
-    private func difficultyText(for difficulty: Difficulty) -> String {
-        switch difficulty {
-        case .babyTime1, .babyTime2: return "Babytime"
-        case .easy1, .easy2, .easy3:
-            return "Easy"
-        case .medium1, .medium2, .medium3:
-            return "Medium"
-        case .hard1, .hard2, .hard3:
-            return "Hard"
-        }
-    }
+//    private func difficultyText(for difficulty: Difficulty) -> String {
+//        switch difficulty {
+//        case .babyTime1, .babyTime2: return "Babytime"
+//        case .easy1, .easy2, .easy3:
+//            return "Easy"
+//        case .medium1, .medium2, .medium3:
+//            return "Medium"
+//        case .hard1, .hard2, .hard3:
+//            return "Hard"
+//        }
+//    }
     
     private func difficultyDescription(for difficalty: Difficulty) -> String {
         return "Choose difficulty level"

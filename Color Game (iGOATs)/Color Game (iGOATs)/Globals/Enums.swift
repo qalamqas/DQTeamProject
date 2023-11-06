@@ -46,14 +46,28 @@ enum Difficulty: CaseIterable {
     
     var description: String {
         switch self {
-        case .babyTime1, .babyTime2:
-            return "Baby plays"
-        case .easy1, .easy2, .easy3:
-            return "Easy"
-        case .medium1, .medium2, .medium3:
-            return "Medium"
-        case .hard1, .hard2, .hard3:
-            return "Hard"
+        case .babyTime1:
+            return "Baby - 1"
+        case .babyTime2:
+            return "Baby - 2"
+        case .easy1:
+            return "Easy - 1"
+        case .easy2:
+            return "Easy - 2"
+        case .easy3:
+            return "Easy - 3"
+        case .medium1:
+            return "Medium - 1"
+        case .medium2:
+            return "Medium - 2"
+        case .medium3:
+            return "Medium - 3"
+        case .hard1:
+            return "Hard - 1"
+        case .hard2:
+            return "Hard - 2"
+        case .hard3:
+            return "Hard - 3"
         }
     }
 }

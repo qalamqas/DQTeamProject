@@ -25,10 +25,12 @@ class GameViewModel: ObservableObject {
     @Published var pressedButtonIndex: Int?
     @Published var correctColor: Color?
     @Published var columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+    @Published var isPaused = false
     var temp: Set<Color> = []
     var temp2: Set<Color> = []
     var tempArray: [Color] = []
     var tempArray2: [Color] = []
+    var randomSet = 0
     
     @Published var shapeCount = 0 {
         didSet {
@@ -69,8 +71,8 @@ class GameViewModel: ObservableObject {
         case .medium1: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .medium2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .medium3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard1: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .hard1: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .hard2: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .hard3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         }
         
@@ -104,55 +106,63 @@ class GameViewModel: ObservableObject {
         var set4: Set<Color> = []
         let result: [Color]
  
-        while set0.count < 12 {
+        while set0.count < 24 {
             set0.insert(Color.random())
         }
-        while set1.count < 12 {
+        while set1.count < 24 {
             set1.insert(Color.randomYellow())
         }
-        while set2.count < 12 {
+        while set2.count < 24 {
             set2.insert(Color.randomRed())
         }
-        while set3.count < 12 {
+        while set3.count < 24 {
             set3.insert(Color.randomBlue())
         }
-        while set4.count < 12 {
+        while set4.count < 24 {
             set4.insert(Color.randomGreen())
         }
         
         switch difficulty {
         case .babyTime1: 
-            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = babyTime1(colors: tempArray)
         case .babyTime2: 
-            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = babyTime2(colors: tempArray)
         case .easy1: 
-            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy1(colors: tempArray)
         case .easy2: 
-            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy2(colors: tempArray)
         case .easy3: 
-            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy3(colors: tempArray)
         case .medium1: 
-            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium1(colors: tempArray)
         case .medium2: 
-            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium2(colors: tempArray)
         case .medium3: 
-            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4));
+            tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium3(colors: tempArray)
         case .hard1: 
-            tempArray = Array(set1.union(set2).union(set3));
+            tempArray = Array(set1.union(set2).union(set3))
             result = hard1(colors: tempArray)
         case .hard2: 
-            tempArray = Array(set2.union(set3).union(set4));
+            tempArray = Array(set2.union(set4))
             result = hard2(colors: tempArray)
         case .hard3: 
-            tempArray = Array(set1.union(set4));
+            randomSet = Int.random(in: 1...4);
+            print(randomSet)
+            switch randomSet {
+            case 1: tempArray = Array(set1)
+            case 2: tempArray = Array(set2)
+            case 3: tempArray = Array(set3)
+            case 4: tempArray = Array(set4)
+            default: tempArray = Array(set0)
+            }
             result = hard3(colors: tempArray)
         }
         
@@ -160,6 +170,8 @@ class GameViewModel: ObservableObject {
     }
     
     func colorBlind(blindnessType: BlindnessType) -> [Color] {
+        shapeCount = 16
+        columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         switch blindnessType {
         case .red_green:
             while temp.count < 8 {
@@ -283,17 +295,17 @@ class GameViewModel: ObservableObject {
     }
     
     func hard1(colors: [Color]) -> [Color] {
-        var temp = Array(colors.prefix(16))
+        var temp = Array(colors.prefix(24))
         temp.shuffle()
-        temp[14] = temp[15]
+        temp[23] = temp[22]
         temp.shuffle()
         return temp
     }
     
     func hard2(colors: [Color]) -> [Color] {
-        var temp = Array(colors.prefix(20))
+        var temp = Array(colors.prefix(24))
         temp.shuffle()
-        temp[19] = temp[18]
+        temp[23] = temp[22]
         temp.shuffle()
         return temp
     }

@@ -25,6 +25,7 @@ class GameViewModel: ObservableObject {
     @Published var pressedButtonIndex: Int?
     @Published var correctColor: Color?
     @Published var columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+    @Published var isPaused = false
     var temp: Set<Color> = []
     var temp2: Set<Color> = []
     var tempArray: [Color] = []
@@ -169,6 +170,8 @@ class GameViewModel: ObservableObject {
     }
     
     func colorBlind(blindnessType: BlindnessType) -> [Color] {
+        shapeCount = 16
+        columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         switch blindnessType {
         case .red_green:
             while temp.count < 8 {

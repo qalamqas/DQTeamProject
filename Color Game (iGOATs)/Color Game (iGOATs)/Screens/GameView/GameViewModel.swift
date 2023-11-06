@@ -34,6 +34,17 @@ class GameViewModel: ObservableObject {
     @Published var isTimeFrozen = false
     @Published var streak = 0
     @Published var wonRounds = 0
+    @Published var maxStreakBabyTime1: Int = 0
+    @Published var maxStreakBabyTime2: Int = 0
+    @Published var maxStreakEasy1: Int = 0
+    @Published var maxStreakEasy2: Int = 0
+    @Published var maxStreakEasy3: Int = 0
+    @Published var maxStreakMedium1: Int = 0
+    @Published var maxStreakMedium2: Int = 0
+    @Published var maxStreakMedium3: Int = 0
+    @Published var maxStreakHard1: Int = 0
+    @Published var maxStreakHard2: Int = 0
+    @Published var maxStreakHard3: Int = 0
     
     var temp: Set<Color> = []
     var temp2: Set<Color> = []
@@ -104,8 +115,41 @@ class GameViewModel: ObservableObject {
                 }
             }
             if streak % 3 == 0 && numberOfLives < 3 {
-                      numberOfLives += 1
-                  }
+                numberOfLives += 1
+            }
+            if streak > maxStreakBabyTime1 && difficulty == .babyTime1 {
+                maxStreakBabyTime1 = streak
+            }
+            if streak > maxStreakBabyTime2 && difficulty == .babyTime2 {
+                maxStreakBabyTime2 = streak
+            }
+            if streak > maxStreakEasy1 && difficulty == .easy1 {
+                maxStreakEasy1 = streak
+            }
+            if streak > maxStreakEasy2 && difficulty == .easy2 {
+                maxStreakEasy2 = streak
+            }
+            if streak > maxStreakEasy3 && difficulty == .easy3 {
+                maxStreakEasy3 = streak
+            }
+            if streak > maxStreakMedium1 && difficulty == .medium1 {
+                maxStreakMedium1 = streak
+            }
+            if streak > maxStreakMedium2 && difficulty == .medium2 {
+                maxStreakMedium2 = streak
+            }
+            if streak > maxStreakMedium3 && difficulty == .medium3 {
+                maxStreakMedium3 = streak
+            }
+            if streak > maxStreakHard1 && difficulty == .hard1 {
+                maxStreakHard1 = streak
+            }
+            if streak > maxStreakHard2 && difficulty == .hard2 {
+                maxStreakHard2 = streak
+            }
+            if streak > maxStreakHard3 && difficulty == .hard3 {
+                maxStreakHard3 = streak
+            }
         } else {
             AudioServicesPlaySystemSound(1100)
             streak = 0
@@ -152,37 +196,37 @@ class GameViewModel: ObservableObject {
         }
         
         switch difficulty {
-        case .babyTime1: 
+        case .babyTime1:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = babyTime1(colors: tempArray)
-        case .babyTime2: 
+        case .babyTime2:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = babyTime2(colors: tempArray)
-        case .easy1: 
+        case .easy1:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy1(colors: tempArray)
-        case .easy2: 
+        case .easy2:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy2(colors: tempArray)
-        case .easy3: 
+        case .easy3:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy3(colors: tempArray)
-        case .medium1: 
+        case .medium1:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium1(colors: tempArray)
-        case .medium2: 
+        case .medium2:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium2(colors: tempArray)
-        case .medium3: 
+        case .medium3:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium3(colors: tempArray)
-        case .hard1: 
+        case .hard1:
             tempArray = Array(set1.union(set2).union(set3))
             result = hard1(colors: tempArray)
-        case .hard2: 
+        case .hard2:
             tempArray = Array(set2.union(set4))
             result = hard2(colors: tempArray)
-        case .hard3: 
+        case .hard3:
             randomSet = Int.random(in: 1...4);
             print(randomSet)
             switch randomSet {
@@ -249,7 +293,7 @@ class GameViewModel: ObservableObject {
                 isBorder = true
             } else if gameView.squareSelected {
                 buttonShape = .square
-                isBorder = true 
+                isBorder = true
             } else if gameView.circleSelected {
                 buttonShape = .circle
                 isBorder = true

@@ -130,12 +130,7 @@ struct GameView: View {
                         .padding()
                     }
                 }
-                .background(
-                    GeometryReader { geometry in
-                        RoundedRectangle(cornerRadius: 30)
-                            .fill(Color.white)
-                            .frame(width: 350, height: geometry.size.height)
-                    })
+
             }
         }
         .alert(item: $gameViewModel.alert) { alert in

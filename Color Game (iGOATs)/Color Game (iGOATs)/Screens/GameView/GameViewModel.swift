@@ -7,8 +7,9 @@
 
 import SwiftUI
 import AVFoundation
+import Foundation
 
-class GameViewModel: ObservableObject {
+final class GameViewModel: ObservableObject {
     private let router: Router
     
     private var gameView: GameView?
@@ -34,17 +35,9 @@ class GameViewModel: ObservableObject {
     @Published var isTimeFrozen = false
     @Published var streak = 0
     @Published var wonRounds = 0
-    @Published var maxStreakBabyTime1: Int = 0
-    @Published var maxStreakBabyTime2: Int = 0
-    @Published var maxStreakEasy1: Int = 0
-    @Published var maxStreakEasy2: Int = 0
-    @Published var maxStreakEasy3: Int = 0
-    @Published var maxStreakMedium1: Int = 0
-    @Published var maxStreakMedium2: Int = 0
-    @Published var maxStreakMedium3: Int = 0
-    @Published var maxStreakHard1: Int = 0
-    @Published var maxStreakHard2: Int = 0
-    @Published var maxStreakHard3: Int = 0
+    @Published var maxRounds: [Mode: [Difficulty: Int]] = [:]
+    @Published var maxStreaks: [Mode: [Difficulty: Int]] = [:]
+    @Published var shapeCount = 0
     
     var temp: Set<Color> = []
     var temp2: Set<Color> = []
@@ -52,16 +45,16 @@ class GameViewModel: ObservableObject {
     var tempArray2: [Color] = []
     var randomSet = 0
     
-    @Published var shapeCount = 0
     
     init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {
         self.router = router
         self.mode = mode
         self.difficulty = difficulty
         self.blindnessType = blindnessType
-        
+        maxStreaks[mode] = [difficulty: 0]
         startGame()
     }
+    
     
     private func isCorrect(_ index: Int) -> Bool {
         let answer = Bool(colors.filter { $0 == colors[index] }.count > 1)
@@ -117,38 +110,14 @@ class GameViewModel: ObservableObject {
             if streak % 3 == 0 && numberOfLives < 3 {
                 numberOfLives += 1
             }
-            if streak > maxStreakBabyTime1 && difficulty == .babyTime1 {
-                maxStreakBabyTime1 = streak
-            }
-            if streak > maxStreakBabyTime2 && difficulty == .babyTime2 {
-                maxStreakBabyTime2 = streak
-            }
-            if streak > maxStreakEasy1 && difficulty == .easy1 {
-                maxStreakEasy1 = streak
-            }
-            if streak > maxStreakEasy2 && difficulty == .easy2 {
-                maxStreakEasy2 = streak
-            }
-            if streak > maxStreakEasy3 && difficulty == .easy3 {
-                maxStreakEasy3 = streak
-            }
-            if streak > maxStreakMedium1 && difficulty == .medium1 {
-                maxStreakMedium1 = streak
-            }
-            if streak > maxStreakMedium2 && difficulty == .medium2 {
-                maxStreakMedium2 = streak
-            }
-            if streak > maxStreakMedium3 && difficulty == .medium3 {
-                maxStreakMedium3 = streak
-            }
-            if streak > maxStreakHard1 && difficulty == .hard1 {
-                maxStreakHard1 = streak
-            }
-            if streak > maxStreakHard2 && difficulty == .hard2 {
-                maxStreakHard2 = streak
-            }
-            if streak > maxStreakHard3 && difficulty == .hard3 {
-                maxStreakHard3 = streak
+            
+            let currentRecord = maxRounds[mode]?[difficulty] ?? 0
+               if wonRounds > currentRecord {
+                   maxRounds[mode]?[difficulty] = wonRounds
+               }
+            
+            if streak > maxStreaks[mode]?[difficulty] ?? 0 {
+                maxStreaks[mode]?[difficulty] = streak
             }
         } else {
             AudioServicesPlaySystemSound(1100)

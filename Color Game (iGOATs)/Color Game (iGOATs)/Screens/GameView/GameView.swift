@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct GameView: View {
-    @ObservedObject var viewModel: GameViewModel
+    
+    @EnvironmentObject var gameViewModel: GameViewModel
+    @ObservedObject var ViewModel: GameViewModel
     
     @State var heartSelected = false
     @State var squareSelected = true
@@ -19,58 +21,58 @@ struct GameView: View {
         ZStack {
             BackgroundView()
             LazyVStack {
-                Text("Mode: \(viewModel.mode.descriptionScreen)")
+                Text("Mode: \(gameViewModel.mode.descriptionScreen)")
                     .bold()
                     .font(.title)
                 
-                if viewModel.mode == .colorMindGame { Text("Difficulty: \(viewModel.difficulty.description)")
+                if gameViewModel.mode == .colorMindGame { Text("Difficulty: \(gameViewModel.difficulty.description)")
                         .bold()
                         .padding(.bottom, 5)
                 }
-                if viewModel.mode == .colorBlindTest { Text("Blindness type: \(viewModel.blindnessType.description)")
+                if gameViewModel.mode == .colorBlindTest { Text("Blindness type: \(gameViewModel.blindnessType.description)")
                         .bold()
                         .padding(.bottom, 5)
                 }
                 VStack() {
-                    Text("Round: \(viewModel.wonRounds)")
+                    Text("Round: \(gameViewModel.wonRounds)")
                         .font(.headline)
-                    if viewModel.mode == .colorMindGame {
-                        Text("Time: \(viewModel.timeRemaining) sec")
+                    if gameViewModel.mode == .colorMindGame {
+                        Text("Time: \(gameViewModel.timeRemaining) sec")
                             .foregroundColor(Color(red: 1, green: 0.25, blue: 0.25))
                             .bold(true)
-                            .onReceive(viewModel.timer) { _ in
-                                if !viewModel.isTimeFrozen {
-                                    if viewModel.timeRemaining > 0 {
-                                        viewModel.timeRemaining -= 1
+                            .onReceive(gameViewModel.timer) { _ in
+                                if !gameViewModel.isTimeFrozen {
+                                    if gameViewModel.timeRemaining > 0 {
+                                        gameViewModel.timeRemaining -= 1
                                     }
-                                    else if viewModel.timeRemaining == 0 {
-                                        viewModel.timer = Timer.publish(every: .infinity, on: .main, in: .common).autoconnect()
-                                        viewModel.showAlert(
+                                    else if gameViewModel.timeRemaining == 0 {
+                                        gameViewModel.timer = Timer.publish(every: .infinity, on: .main, in: .common).autoconnect()
+                                        gameViewModel.showAlert(
                                             title: "Time's Up!",
                                             message: "Choose an option",
                                             primaryActionTitle: "Restart",
                                             secondaryActionTitle: "Main Menu",
                                             primaryAction: {
-                                                viewModel.restartGame()
+                                                gameViewModel.restartGame()
                                             },
                                             secondaryAction: {
-                                                viewModel.returnToMainMenu()
+                                                gameViewModel.returnToMainMenu()
                                             }
                                         )
                                     }
                                 }
                             }
                     }
-                    Text("Streak: \(viewModel.streak)")
-                    LazyVGrid(columns: viewModel.columns) {
+                    Text("Streak: \(gameViewModel.streak)")
+                    LazyVGrid(columns: gameViewModel.columns) {
                         
-                        ForEach(0...viewModel.shapeCount - 1, id: \.self) { index in
+                        ForEach(0...gameViewModel.shapeCount - 1, id: \.self) { index in
                             Button("") {
-                                viewModel.proceedUserInput(index)
+                                gameViewModel.proceedUserInput(index)
                             }
-                            .buttonStyle(ColorButtonStyle(background: viewModel.colors[index], shapeType: viewModel.buttonShape, isBorder: false))
-                            .overlay { if index == viewModel.pressedButtonIndex {
-                                switch viewModel.ifCorrectAnswer {
+                            .buttonStyle(ColorButtonStyle(background: gameViewModel.colors[index], shapeType: gameViewModel.buttonShape, isBorder: false))
+                            .overlay { if index == gameViewModel.pressedButtonIndex {
+                                switch gameViewModel.ifCorrectAnswer {
                                 case 0: Text("")
                                 case 1: Text("❤️")
                                 case 2: Text("💔")
@@ -79,13 +81,13 @@ struct GameView: View {
                             } else { Text("") }
                             }
                             .overlay {
-                                if viewModel.ifCorrectAnswer == 1 {
-                                    if viewModel.colors[index] == viewModel.correctColor {
+                                if gameViewModel.ifCorrectAnswer == 1 {
+                                    if gameViewModel.colors[index] == gameViewModel.correctColor {
                                         Text("❤️")
                                     }
                                 }
                             }
-                            .disabled(viewModel.ifCorrectAnswer == 1)
+                            .disabled(gameViewModel.ifCorrectAnswer == 1)
                         }
                     }
                     HStack {
@@ -94,7 +96,7 @@ struct GameView: View {
                                 heartSelected.toggle()
                                 squareSelected = false
                                 circleSelected = false
-                                viewModel.buttonShape = .heart
+                                gameViewModel.buttonShape = .heart
                             }) {
                                 Image(systemName: heartSelected ? "heart.fill" : "heart")
                             }
@@ -102,7 +104,7 @@ struct GameView: View {
                                 squareSelected.toggle()
                                 heartSelected = false
                                 circleSelected = false
-                                viewModel.buttonShape = .square
+                                gameViewModel.buttonShape = .square
                             }) {
                                 Image(systemName: squareSelected ? "square.fill" : "square")
                             }
@@ -110,14 +112,14 @@ struct GameView: View {
                                 circleSelected.toggle()
                                 heartSelected = false
                                 squareSelected = false
-                                viewModel.buttonShape = .circle
+                                gameViewModel.buttonShape = .circle
                             }) {
                                 Image(systemName: circleSelected ? "circle.fill" : "circle")
                                 
                             }
                         }
                         HStack {
-                            ForEach(0..<viewModel.numberOfLives, id: \.self) { _ in
+                            ForEach(0..<gameViewModel.numberOfLives, id: \.self) { _ in
                                 Image(systemName: "heart.fill")
                                     .foregroundColor(Color.red)
                             }
@@ -133,7 +135,7 @@ struct GameView: View {
                     })
             }
         }
-        .alert(item: $viewModel.alert) { alert in
+        .alert(item: $gameViewModel.alert) { alert in
             Alert(
                 title: Text(alert.title),
                 message: Text(alert.message),

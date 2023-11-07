@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class GameAssembly {
     func build(for mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType) -> GameView {
         let router = Router.shared
         let viewModel = GameViewModel(mode: mode, difficulty: difficulty, blindnessType: blindnessType, router: router)
-        return GameView(viewModel: viewModel)
+        return GameView(ViewModel: viewModel)
     }
 }

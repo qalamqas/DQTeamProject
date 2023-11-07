@@ -9,9 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var settingsViewModel: SettingsViewModel
-    @State private var mode: Mode = .colorMindGame
-    @State private var difficulty: Difficulty = .babyTime1
-    @State private var blindnessType: BlindnessType = .blue_yellow
+    @EnvironmentObject var gameViewModel: GameViewModel
     
     var body: some View {
         NavigationView {
@@ -29,15 +27,15 @@ struct SettingsView: View {
                         .frame(height: 40)
                     
                     Button(action: {
-                        mode = mode.next()
+                        gameViewModel.mode = gameViewModel.mode.next()
                     }) {
                         HStack{
                             Spacer()
                             VStack {
-                                Text(self.modeText(for: mode))
+                                Text(self.modeText(for: gameViewModel.mode))
                                     .font(.headline)
                                     .fixedSize(horizontal: true, vertical: true)
-                                Text(mode.description)
+                                Text(gameViewModel.mode.description)
                                     .fixedSize(horizontal: true, vertical: true)
                             }
                             Spacer()
@@ -52,15 +50,15 @@ struct SettingsView: View {
                     .cornerRadius(20)
                     
                     Button(action: {
-                        difficulty = difficulty.next()
+                        gameViewModel.difficulty = gameViewModel.difficulty.next()
                     }) {
                         HStack {
                             Spacer()
                             VStack {
-                                Text(self.difficultyDescription(for: difficulty))
+                                Text(self.difficultyDescription(for: gameViewModel.difficulty))
                                     .font(.headline)
                                     .fixedSize(horizontal: true, vertical: true)
-                                Text(self.difficulty.description)
+                                Text(gameViewModel.difficulty.description)
                                     .fixedSize(horizontal: true, vertical: true)
                             }
                             Spacer()
@@ -73,19 +71,19 @@ struct SettingsView: View {
                     .background(.mint)
                     .foregroundColor(.black)
                     .cornerRadius(20)
-                    .disabled(mode == .colorBlindTest ? true : false)
-                    .opacity(mode == .colorBlindTest ? 0.25 : 1)
+                    .disabled(gameViewModel.mode == .colorBlindTest ? true : false)
+                    .opacity(gameViewModel.mode == .colorBlindTest ? 0.25 : 1)
                     
                     Button(action: {
-                        blindnessType = blindnessType.next()
+                        gameViewModel.blindnessType = gameViewModel.blindnessType.next()
                     }) {
                         HStack {
                             Spacer()
                             VStack {
-                                Text(self.blindnessTypeText(for: blindnessType))
+                                Text(self.blindnessTypeText(for: gameViewModel.blindnessType))
                                     .font(.headline)
                                     .fixedSize(horizontal: true, vertical: true)
-                                Text(self.blindnessTypeDescription(for: blindnessType))
+                                Text(self.blindnessTypeDescription(for: gameViewModel.blindnessType))
                                     .fixedSize(horizontal: true, vertical: true)
                             }
                             Spacer()
@@ -98,13 +96,13 @@ struct SettingsView: View {
                     .background(.green)
                     .foregroundColor(.black)
                     .cornerRadius(20)
-                    .disabled(mode == .colorMindGame ? true : false)
-                    .opacity(mode == .colorMindGame ? 0.25 : 1)
+                    .disabled(gameViewModel.mode == .colorMindGame ? true : false)
+                    .opacity(gameViewModel.mode == .colorMindGame ? 0.25 : 1)
                     
                     
                     Button(action: {
                         settingsViewModel.gamesPlayed += 1
-                        Router.shared.showGameView(mode: mode, difficulty: difficulty, blindnessType: blindnessType)
+                        Router.shared.showGameView(mode: gameViewModel.mode, difficulty: gameViewModel.difficulty, blindnessType: gameViewModel.blindnessType)
                     }) {
                         HStack{
                             Text("GO")
@@ -139,7 +137,7 @@ struct SettingsView: View {
 //        }
 //    }
     
-    private func difficultyDescription(for difficalty: Difficulty) -> String {
+    private func difficultyDescription(for difficulty: Difficulty) -> String {
         return "Choose difficulty level"
     }
     

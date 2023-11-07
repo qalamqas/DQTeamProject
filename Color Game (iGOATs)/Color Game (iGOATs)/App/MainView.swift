@@ -9,8 +9,10 @@ import SwiftUI
 
 @main
 struct InitView: App {
+    
     @ObservedObject var router = Router.shared
-    @StateObject private var settingsViewModel = SettingsViewModel(router: Router.shared)
+    @StateObject var settingsViewModel = SettingsViewModel(router: Router.shared)
+    @StateObject var gameViewModel = GameViewModel(mode: .colorMindGame, difficulty: .babyTime1, blindnessType: .blue_yellow, router: Router.shared)
     
     var body: some Scene {
         WindowGroup {
@@ -26,12 +28,14 @@ struct InitView: App {
                             ProfileAssembly().build()
                         case .gameView(let mode, let difficulty, let blindnessType):
                             GameAssembly().build(for: mode, difficulty: difficulty, blindnessType: blindnessType)
+                                .environmentObject(gameViewModel)
                         case .tabBar:
                             TabBarAssembly().build()
                         }
                     }
             }
             .preferredColorScheme(.light)
+            .environmentObject(gameViewModel)
             .environmentObject(settingsViewModel)
         }
     }

@@ -33,10 +33,11 @@ struct InitView: App {
                             TabBarAssembly().build()
                         }
                     }
+                    .environmentObject(settingsViewModel)
             }
             .preferredColorScheme(.light)
 //            .environmentObject(gameViewModel)
-//            .environmentObject(settingsViewModel)
+            .environmentObject(settingsViewModel)
         }
     }
 }

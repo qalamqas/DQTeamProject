@@ -14,7 +14,7 @@ import SwiftData
 struct ProfileView: View {
     
     @ObservedObject var viewModel: ProfileViewModel
-    @EnvironmentObject var gameViewModel: GameViewModel
+    @ObservedObject var gameViewModel: GameViewModel
     @EnvironmentObject var settingsViewModel: SettingsViewModel
     @State var selectedImage: UIImage?
     @State private var isImagePickerPresented = false

@@ -189,15 +189,8 @@ final class GameViewModel: ObservableObject {
         case .medium3:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium3(colors: tempArray)
-        case .hard1:
-            tempArray = Array(set1.union(set2).union(set3))
-            result = hard1(colors: tempArray)
-        case .hard2:
-            tempArray = Array(set2.union(set4))
-            result = hard2(colors: tempArray)
-        case .hard3:
-            randomSet = Int.random(in: 1...4);
-            print(randomSet)
+        case .hard1, .hard2, .hard3:
+            randomSet = Int.random(in: 1...4)
             switch randomSet {
             case 1: tempArray = Array(set1)
             case 2: tempArray = Array(set2)

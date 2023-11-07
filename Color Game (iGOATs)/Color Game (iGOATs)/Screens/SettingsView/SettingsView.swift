@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
     @State private var mode: Mode = .colorMindGame
-    @State private var difficulty: Difficulty = .easy1
+    @State private var difficulty: Difficulty = .babyTime1
     @State private var blindnessType: BlindnessType = .blue_yellow
     
     var body: some View {
@@ -47,23 +47,22 @@ struct SettingsView: View {
                             Spacer()
                                 .frame(width: 60)
                         }
-                        }
                     }
                     .frame(width: 350, height: 80)
                     .background(.yellow)
                     .foregroundColor(.black)
                     .cornerRadius(20)
-                    
+
                     Button(action: {
-                        viewModel.difficulty = viewModel.difficulty.next()
+                        difficulty = difficulty.next()
                     }) {
                         HStack {
                             Spacer()
                             VStack {
-                                Text(self.difficultyDescription(for: viewModel.difficulty))
+                                Text(self.difficultyDescription(for: difficulty))
                                     .font(.headline)
                                     .fixedSize(horizontal: true, vertical: true)
-                                Text(viewModel.difficulty.description)
+                                Text(difficulty.description)
                                     .fixedSize(horizontal: true, vertical: true)
                             }
                             Spacer()
@@ -76,19 +75,19 @@ struct SettingsView: View {
                     .background(.mint)
                     .foregroundColor(.black)
                     .cornerRadius(20)
-                    .disabled(viewModel.mode == .colorBlindTest ? true : false)
-                    .opacity(viewModel.mode == .colorBlindTest ? 0.25 : 1)
+                    .disabled(mode == .colorBlindTest ? true : false)
+                    .opacity(mode == .colorBlindTest ? 0.25 : 1)
                     
                     Button(action: {
-                        viewModel.blindnessType = viewModel.blindnessType.next()
+                        blindnessType = blindnessType.next()
                     }) {
                         HStack {
                             Spacer()
                             VStack {
-                                Text(self.blindnessTypeText(for: viewModel.blindnessType))
+                                Text(self.blindnessTypeText(for: blindnessType))
                                     .font(.headline)
                                     .fixedSize(horizontal: true, vertical: true)
-                                Text(self.blindnessTypeDescription(for: viewModel.blindnessType))
+                                Text(self.blindnessTypeDescription(for: blindnessType))
                                     .fixedSize(horizontal: true, vertical: true)
                             }
                             Spacer()
@@ -101,13 +100,13 @@ struct SettingsView: View {
                     .background(.green)
                     .foregroundColor(.black)
                     .cornerRadius(20)
-                    .disabled(viewModel.mode == .colorMindGame ? true : false)
-                    .opacity(viewModel.mode == .colorMindGame ? 0.25 : 1)
+                    .disabled(mode == .colorMindGame ? true : false)
+                    .opacity(mode == .colorMindGame ? 0.25 : 1)
                     
                     
                     Button(action: {
                         //settingsViewModel.gamesPlayed += 1
-                        Router.shared.showGameView(mode: viewModel.mode, difficulty: viewModel.difficulty, blindnessType: viewModel.blindnessType)
+                        Router.shared.showGameView(mode: mode, difficulty: difficulty, blindnessType: blindnessType)
                     }) {
                         HStack{
                             Text("GO")

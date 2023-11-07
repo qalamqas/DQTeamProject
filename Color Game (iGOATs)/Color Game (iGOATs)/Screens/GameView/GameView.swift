@@ -36,8 +36,6 @@ struct GameView: View {
                         .foregroundColor(Color(red: 0.988281, green: 0.855469, blue: 0.867188))
                 }
                 VStack() {
-                    Text("Round: \(viewModel.wonRounds)")
-                        .font(.headline)
                     if viewModel.mode == .colorMindGame {
                         Text("Time: \(viewModel.timeRemaining) sec")
                             .foregroundColor(Color(red: 1, green: 0.25, blue: 0.25))
@@ -64,8 +62,17 @@ struct GameView: View {
                                     }
                                 }
                             }
+                        Text("Round: \(viewModel.wonRounds)")
+                            .font(.headline)
+                            .foregroundColor(.white)
+
+                        Text("Streak: \(viewModel.streak)")
+                            .foregroundColor(.white)
+                    } else {
+                        Text("\(viewModel.colorblindText)")
+                            .foregroundColor(viewModel.colorblindTextColor)
                     }
-                    Text("Streak: \(viewModel.streak)")
+
                     LazyVGrid(columns: viewModel.columns) {
                         
                         ForEach(0...viewModel.shapeCount - 1, id: \.self) { index in

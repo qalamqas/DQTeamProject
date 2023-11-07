@@ -38,12 +38,15 @@ final class GameViewModel: ObservableObject {
     @Published var maxRounds: [Mode: [Difficulty: Int]] = [:]
     @Published var maxStreaks: [Mode: [Difficulty: Int]] = [:]
     @Published var shapeCount = 0
+    @Published var colorblindText = ""
+    @Published var colorblindTextColor = Color.cyan
     
     var temp: Set<Color> = []
     var temp2: Set<Color> = []
     var tempArray: [Color] = []
     var tempArray2: [Color] = []
     var randomSet = 0
+    var rightBlindnessPallete: [Color] = []
     
     
     init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {

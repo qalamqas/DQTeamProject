@@ -168,11 +168,9 @@ final class GameViewModel: ObservableObject {
             if streak % 3 == 0 && numberOfLives < 3 {
                 numberOfLives += 1
             }
-            
             if wonRounds > maxRounds[mode]?[difficulty] ?? 0 {
                 maxRounds[mode]?[difficulty] = wonRounds
             }
-            
             if streak > maxStreaks[mode]?[difficulty] ?? 0 {
                 maxStreaks[mode]?[difficulty] = streak
             }

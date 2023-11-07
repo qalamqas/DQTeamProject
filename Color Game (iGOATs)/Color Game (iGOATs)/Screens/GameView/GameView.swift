@@ -10,7 +10,7 @@ import SwiftUI
 struct GameView: View {
     
     @ObservedObject var viewModel: GameViewModel
-        
+    
     @State var heartSelected = false
     @State var squareSelected = true
     @State var circleSelected = false
@@ -129,8 +129,13 @@ struct GameView: View {
                         .padding()
                     }
                 }
-
-            }.frame(width: 300, height: 350)
+                .background(
+                    GeometryReader { geometry in
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Color.white)
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                    })
+            }
         }
         .alert(item: $viewModel.alert) { alert in
             Alert(

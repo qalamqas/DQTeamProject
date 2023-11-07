@@ -40,6 +40,9 @@ final class GameViewModel: ObservableObject {
     @Published var shapeCount = 0
     @Published var colorblindText = ""
     @Published var colorblindTextColor = Color.cyan
+    @Published var isRightPallete = false
+    @Published var showingBlindnessAlert = false
+    @Published var alertText = ""
     
     var temp: Set<Color> = []
     var temp2: Set<Color> = []

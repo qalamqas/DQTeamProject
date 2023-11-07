@@ -14,6 +14,7 @@ struct InitView: App {
     @StateObject var settingsViewModel = SettingsViewModel(router: Router.shared)
     @StateObject var gameViewModel = GameViewModel(mode: .colorMindGame, difficulty: .babyTime1, blindnessType: .blue_yellow, router: Router.shared)
     
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.path) {

@@ -35,6 +35,8 @@ final class GameViewModel: ObservableObject {
     @Published var isTimeFrozen = false
     @Published var streak = 0
     @Published var wonRounds = 0
+    @Published var totalWonRounds: Int = 0
+    @Published var totalLostLives: Int = 0
     @Published var maxRounds: [Mode: [Difficulty: Int]] = [:]
     @Published var maxStreaks: [Mode: [Difficulty: Int]] = [:]
     @Published var shapeCount = 0
@@ -107,12 +109,12 @@ final class GameViewModel: ObservableObject {
                     self.isTimeFrozen = false
                 }
             }
+            totalWonRounds += 1
             if streak % 3 == 0 && numberOfLives < 3 {
                 numberOfLives += 1
             }
             
-            let currentRecord = maxRounds[mode]?[difficulty] ?? 0
-               if wonRounds > currentRecord {
+            if wonRounds > maxRounds[mode]?[difficulty] ?? 0 {
                    maxRounds[mode]?[difficulty] = wonRounds
                }
             
@@ -123,6 +125,7 @@ final class GameViewModel: ObservableObject {
             AudioServicesPlaySystemSound(1100)
             streak = 0
             numberOfLives -= 1
+            totalLostLives += 1
             if numberOfLives == 0 {
                 showAlert(
                     title: "Game Over",

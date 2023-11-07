@@ -9,14 +9,17 @@ import SwiftUI
 import UIKit
 import Photos
 import Foundation
+import SwiftData
 
 struct ProfileView: View {
+    
     @ObservedObject var viewModel: ProfileViewModel
     @EnvironmentObject var gameViewModel: GameViewModel
     @EnvironmentObject var settingsViewModel: SettingsViewModel
     @State var selectedImage: UIImage?
     @State private var isImagePickerPresented = false
-    @State private var playerName = ""
+    @State var playerName: String = ""
+    
     
     var body: some View {
         ZStack {
@@ -48,10 +51,19 @@ struct ProfileView: View {
                             isImagePickerPresented = true
                         }
                         .sheet(isPresented: $isImagePickerPresented) {
-                            ImagePicker(selectedImage: $selectedImage)
+                            ImagePicker(selectedImage: $selectedImage) {
+                                pickedImage in
+                                if let imageData = pickedImage?.jpegData(compressionQuality: 1.0) {
+                                    UserDefaults.standard.setProfileImage(imageData)
+                                }
+                            }
                         }
                         
-                        TextField("Player name", text: $playerName)
+                        TextField("Player name", text: $playerName, onEditingChanged: { isEditing in
+                            if !isEditing {
+                                UserDefaults.standard.setPlayerName(playerName)
+                            }
+                        })
                             .font(.title)
                             .fontWeight(.bold)
                             .padding(.top, 10)
@@ -62,11 +74,11 @@ struct ProfileView: View {
                             .font(.headline)
                             .padding(.top, 5)
                         
-                        Text("Total number of round wins: 75")
+                        Text("Total number of round wins: \(gameViewModel.totalWonRounds)")
                             .font(.headline)
                             .padding(.top, 5)
                         
-                        Text("Total number of lost lives: 30")
+                        Text("Total number of lost lives: \(gameViewModel.totalLostLives)")
                             .font(.headline)
                             .padding(.top, 5)
                         

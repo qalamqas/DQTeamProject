@@ -36,7 +36,6 @@ struct InitView: App {
                     .environmentObject(settingsViewModel)
             }
             .preferredColorScheme(.light)
-//            .environmentObject(gameViewModel)
             .environmentObject(settingsViewModel)
         }
     }

@@ -314,7 +314,7 @@ final class GameViewModel: ObservableObject {
             return tempArray
             
         case .blue_yellow:
-            colorblindText = "Find duplicated color in BLUE shades"
+            colorblindText = "Find duplicated color in Blue shades"
             colorblindTextColor = Color(red: 0.953125, green: 0.26953125, blue: 0)
             
             while temp.count < 8 {

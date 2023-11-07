@@ -1,15 +1,15 @@
+
 //
 //  GameView.swift
 //  Color Game (iGOATs)
 //
 //  Created by Каламкас on 24.10.2023.
 //
-
 import SwiftUI
-
 struct GameView: View {
     
     @ObservedObject var viewModel: GameViewModel
+    
     
     @State var heartSelected = false
     @State var squareSelected = true
@@ -65,14 +65,13 @@ struct GameView: View {
                         Text("Round: \(viewModel.wonRounds)")
                             .font(.headline)
                             .foregroundColor(.white)
-
+                        
                         Text("Streak: \(viewModel.streak)")
                             .foregroundColor(.white)
                     } else {
                         Text("\(viewModel.colorblindText)")
                             .foregroundColor(viewModel.colorblindTextColor)
                     }
-
                     LazyVGrid(columns: viewModel.columns) {
                         
                         ForEach(0...viewModel.shapeCount - 1, id: \.self) { index in
@@ -142,7 +141,9 @@ struct GameView: View {
                             .fill(Color.white)
                             .frame(width: geometry.size.width, height: geometry.size.height)
                     })
+                
             }
+            .frame(width: 300, height: 350)
         }
         .alert(item: $viewModel.alert) { alert in
             Alert(
@@ -154,10 +155,6 @@ struct GameView: View {
         }
     }
 }
-
-
-
-
 
 
 //struct AboutProgram_Previews: PreviewProvider {

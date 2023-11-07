@@ -19,10 +19,12 @@ struct SettingsView: View {
                     Text("Settings")
                         .font(.largeTitle)
                         .bold()
+                        .foregroundColor(Color(red: 0.988281, green: 0.855469, blue: 0.867188))
                     Spacer()
                         .frame(height: 5)
                     
                     Text("Challenge your color vision.")
+                        .foregroundColor(Color(red: 0.988281, green: 0.855469, blue: 0.867188))
                     Spacer()
                         .frame(height: 40)
                     

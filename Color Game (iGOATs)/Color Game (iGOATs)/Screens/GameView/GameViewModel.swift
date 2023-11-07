@@ -39,13 +39,24 @@ final class GameViewModel: ObservableObject {
     @Published var totalLostLives: Int = 0
     @Published var maxRounds: [Mode: [Difficulty: Int]] = [:]
     @Published var maxStreaks: [Mode: [Difficulty: Int]] = [:]
-    @Published var shapeCount = 0
+    @Published var colorblindText = ""
+    @Published var colorblindTextColor = Color.cyan
+    @Published var isRightPallete = false
+    @Published var showingBlindnessAlert = false
+    @Published var alertText = ""
+    @Published var shapeCount = 0 {
+        didSet {
+            print("shapeCount = \(shapeCount)")
+        }
+    }
     
     var temp: Set<Color> = []
     var temp2: Set<Color> = []
     var tempArray: [Color] = []
     var tempArray2: [Color] = []
     var randomSet = 0
+    var rightBlindnessPallete: [Color] = []
+    var tryCount = 0
     
     
     init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {
@@ -60,6 +71,14 @@ final class GameViewModel: ObservableObject {
     
     private func isCorrect(_ index: Int) -> Bool {
         let answer = Bool(colors.filter { $0 == colors[index] }.count > 1)
+        
+        if mode == .colorBlindTest {
+            for i in 0...7 {
+                if colors[index] == rightBlindnessPallete[i] {
+                    isRightPallete = true } else { isRightPallete = false }
+            }
+        }
+        
         if  answer {
             ifCorrectAnswer = 1
             correctColor = colors[index]
@@ -84,10 +103,12 @@ final class GameViewModel: ObservableObject {
         case .medium1: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .medium2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .medium3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard1: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard2: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .hard1: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .hard2: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .hard3: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         }
+        print(difficulty)
+        print(shapeCount)
         
         self.ifCorrectAnswer = 0
         if self.mode == .colorBlindTest {
@@ -104,7 +125,7 @@ final class GameViewModel: ObservableObject {
                 streak += 1
                 wonRounds += 1
                 isTimeFrozen = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     self.startRound()
                     self.isTimeFrozen = false
                 }
@@ -122,7 +143,17 @@ final class GameViewModel: ObservableObject {
                 maxStreaks[mode]?[difficulty] = streak
             }
         } else {
+            if tryCount < 3 { tryCount += 1 }
             AudioServicesPlaySystemSound(1100)
+            if tryCount == 3 {
+                tryCount = 0
+                if ((mode == .colorBlindTest) && (isRightPallete == false)) {
+                    alertText = "You'd have your eyes checked!"
+                    showingBlindnessAlert = true
+                }
+            }
+            
+            
             streak = 0
             numberOfLives -= 1
             totalLostLives += 1
@@ -192,15 +223,8 @@ final class GameViewModel: ObservableObject {
         case .medium3:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium3(colors: tempArray)
-        case .hard1:
-            tempArray = Array(set1.union(set2).union(set3))
-            result = hard1(colors: tempArray)
-        case .hard2:
-            tempArray = Array(set2.union(set4))
-            result = hard2(colors: tempArray)
-        case .hard3:
-            randomSet = Int.random(in: 1...4);
-            print(randomSet)
+        case .hard1, .hard2, .hard3:
+            randomSet = Int.random(in: 1...4)
             switch randomSet {
             case 1: tempArray = Array(set1)
             case 2: tempArray = Array(set2)
@@ -208,7 +232,7 @@ final class GameViewModel: ObservableObject {
             case 4: tempArray = Array(set4)
             default: tempArray = Array(set0)
             }
-            result = hard3(colors: tempArray)
+            result = hard(colors: tempArray)
         }
         
         return result
@@ -217,18 +241,22 @@ final class GameViewModel: ObservableObject {
     func colorBlind(blindnessType: BlindnessType) -> [Color] {
         shapeCount = 16
         columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        
         switch blindnessType {
         case .red_green:
+            colorblindText = "Find duplicated color in RED shades"
+            colorblindTextColor = Color(red: 0, green: 1, blue: 0)
             while temp.count < 8 {
                 temp.insert(Color.randomRed())
             }
             tempArray = Array(temp)
             tempArray[7] = tempArray[6]
+            rightBlindnessPallete = tempArray
             
             while temp2.count < 8 {
                 temp2.insert(Color.randomGreen())
             }
-            
+
             tempArray2 = Array(temp2)
             
             for i in 0...7 {
@@ -238,16 +266,20 @@ final class GameViewModel: ObservableObject {
             return tempArray
             
         case .blue_yellow:
+            colorblindText = "Find duplicated color in BLUE shades"
+            colorblindTextColor = Color(red: 0.953125, green: 0.26953125, blue: 0)
+
             while temp.count < 8 {
                 temp.insert(Color.randomBlue())
             }
             tempArray = Array(temp)
             tempArray[7] = tempArray[6]
+            rightBlindnessPallete = tempArray
             
             while temp2.count < 8 {
                 temp2.insert(Color.randomYellow())
             }
-            
+
             tempArray2 = Array(temp2)
             
             for i in 0...7 {
@@ -255,7 +287,7 @@ final class GameViewModel: ObservableObject {
             }
             tempArray.shuffle()
             return tempArray
-        }
+            }
     }
     
     func changeForm() {
@@ -339,29 +371,14 @@ final class GameViewModel: ObservableObject {
         return temp
     }
     
-    func hard1(colors: [Color]) -> [Color] {
-        var temp = Array(colors.prefix(24))
+    func hard(colors: [Color]) -> [Color] {
+        var temp = Array(colors.prefix(16))
         temp.shuffle()
-        temp[23] = temp[22]
-        temp.shuffle()
-        return temp
-    }
-    
-    func hard2(colors: [Color]) -> [Color] {
-        var temp = Array(colors.prefix(24))
-        temp.shuffle()
-        temp[23] = temp[22]
+        temp[15] = temp[14]
         temp.shuffle()
         return temp
     }
-    
-    func hard3(colors: [Color]) -> [Color] {
-        var temp = Array(colors.prefix(24))
-        temp.shuffle()
-        temp[23] = temp[22]
-        temp.shuffle()
-        return temp
-    }
+
     
     func restartGame() {
         numberOfLives = 3

@@ -75,7 +75,7 @@ final class GameViewModel: ObservableObject {
     }
     
     func startRound() {
-        //timeRemaining = 30
+        timeRemaining = 30
         switch self.difficulty {
         case .babyTime1: shapeCount = 4; columns = Array(repeating: GridItem(.fixed(60)), count: 2)
         case .babyTime2: shapeCount = 9; columns = Array(repeating: GridItem(.fixed(60)), count: 3)

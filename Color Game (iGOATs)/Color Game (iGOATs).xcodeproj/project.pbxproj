@@ -40,7 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B5C9AC72ACC682A00C51889 /* Color Game (iGOATs).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Color Game (iGOATs).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B5C9AC72ACC682A00C51889 /* colorMind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = colorMind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B5C9ACC2ACC682A00C51889 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		0B5C9ACE2ACC682B00C51889 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B5C9AD12ACC682B00C51889 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		0B5C9AC82ACC682A00C51889 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0B5C9AC72ACC682A00C51889 /* Color Game (iGOATs).app */,
+				0B5C9AC72ACC682A00C51889 /* colorMind.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -252,7 +252,7 @@
 			);
 			name = "Color Game (iGOATs)";
 			productName = "Color Game (iGOATs)";
-			productReference = 0B5C9AC72ACC682A00C51889 /* Color Game (iGOATs).app */;
+			productReference = 0B5C9AC72ACC682A00C51889 /* colorMind.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -478,7 +478,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "iGOATs-bundle";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = colorMind;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -508,7 +508,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "iGOATs-bundle";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = colorMind;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

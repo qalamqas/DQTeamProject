@@ -37,12 +37,16 @@ final class GameViewModel: ObservableObject {
     @Published var wonRounds = 0
     @Published var maxRounds: [Mode: [Difficulty: Int]] = [:]
     @Published var maxStreaks: [Mode: [Difficulty: Int]] = [:]
-    @Published var shapeCount = 0
     @Published var colorblindText = ""
     @Published var colorblindTextColor = Color.cyan
     @Published var isRightPallete = false
     @Published var showingBlindnessAlert = false
     @Published var alertText = ""
+    @Published var shapeCount = 0 {
+        didSet {
+            print("shapeCount = \(shapeCount)")
+        }
+    }
     
     var temp: Set<Color> = []
     var temp2: Set<Color> = []

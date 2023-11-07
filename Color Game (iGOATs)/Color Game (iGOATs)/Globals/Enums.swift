@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum Mode: CaseIterable, CustomStringConvertible {
+enum Mode: CaseIterable, CustomStringConvertible, Codable {
     case colorMindGame
     case colorBlindTest
     
@@ -31,7 +31,7 @@ enum Mode: CaseIterable, CustomStringConvertible {
     }
 }
 
-enum Difficulty: CaseIterable {
+enum Difficulty: CaseIterable, Codable {
     case babyTime1
     case babyTime2
     case easy1

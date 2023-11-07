@@ -8,11 +8,16 @@
 import Foundation
 
 final class SettingsViewModel: ObservableObject {
-    @Published var gamesPlayed: Int = 0
-    
     private let router: Router
+    @Published var gamesPlayed: Int {
+        didSet {
+            UserDefaults.standard.set(gamesPlayed, forKey: "gamesPlayed")
+            UserDefaults.standard.synchronize()
+        }
+    }
     
     init(router: Router) {
-        self.router = router
-    }
+           self.gamesPlayed = UserDefaults.standard.integer(forKey: "gamesPlayed")
+           self.router = router
+       }
 }

@@ -35,8 +35,19 @@ final class GameViewModel: ObservableObject {
     @Published var isTimeFrozen = false
     @Published var streak = 0
     @Published var wonRounds = 0
-    @Published var totalWonRounds: Int = 0
-    @Published var totalLostLives: Int = 0
+    @Published var totalWonRounds: Int {
+        didSet {
+            UserDefaults.standard.set(totalWonRounds, forKey: "totalRoundsWon")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    @Published var totalLostLives: Int {
+        didSet {
+            UserDefaults.standard.set(totalLostLives, forKey: "totalLostLives")
+            UserDefaults.standard.synchronize()
+        }
+    }
     @Published var maxRounds: [Mode: [Difficulty: Int]] = [:]
     @Published var maxStreaks: [Mode: [Difficulty: Int]] = [:]
     @Published var colorblindText = ""
@@ -64,9 +75,32 @@ final class GameViewModel: ObservableObject {
         self.mode = mode
         self.difficulty = difficulty
         self.blindnessType = blindnessType
+        self.totalWonRounds = UserDefaults.standard.integer(forKey: "totalWonRounds")
+        self.totalLostLives = UserDefaults.standard.integer(forKey: "totalLostLives")
+        loadMaxRoundsAndStreaks()
         maxStreaks[mode] = [difficulty: 0]
         startGame()
     }
+    
+    private func saveMaxRoundsAndStreaks() {
+           let encoder = JSONEncoder()
+           if let encodedMaxRounds = try? encoder.encode(maxRounds),
+              let encodedMaxStreaks = try? encoder.encode(maxStreaks) {
+               UserDefaults.standard.set(encodedMaxRounds, forKey: "maxRounds")
+               UserDefaults.standard.set(encodedMaxStreaks, forKey: "maxStreaks")
+           }
+       }
+    
+    private func loadMaxRoundsAndStreaks() {
+           let decoder = JSONDecoder()
+           if let maxRoundsData = UserDefaults.standard.data(forKey: "maxRounds"),
+              let maxStreaksData = UserDefaults.standard.data(forKey: "maxStreaks"),
+              let decodedMaxRounds = try? decoder.decode([Mode: [Difficulty: Int]].self, from: maxRoundsData),
+              let decodedMaxStreaks = try? decoder.decode([Mode: [Difficulty: Int]].self, from: maxStreaksData) {
+               maxRounds = decodedMaxRounds
+               maxStreaks = decodedMaxStreaks
+           }
+       }
     
     
     private func isCorrect(_ index: Int) -> Bool {
@@ -136,8 +170,8 @@ final class GameViewModel: ObservableObject {
             }
             
             if wonRounds > maxRounds[mode]?[difficulty] ?? 0 {
-                   maxRounds[mode]?[difficulty] = wonRounds
-               }
+                maxRounds[mode]?[difficulty] = wonRounds
+            }
             
             if streak > maxStreaks[mode]?[difficulty] ?? 0 {
                 maxStreaks[mode]?[difficulty] = streak
@@ -256,7 +290,7 @@ final class GameViewModel: ObservableObject {
             while temp2.count < 8 {
                 temp2.insert(Color.randomGreen())
             }
-
+            
             tempArray2 = Array(temp2)
             
             for i in 0...7 {
@@ -268,7 +302,7 @@ final class GameViewModel: ObservableObject {
         case .blue_yellow:
             colorblindText = "Find duplicated color in BLUE shades"
             colorblindTextColor = Color(red: 0.953125, green: 0.26953125, blue: 0)
-
+            
             while temp.count < 8 {
                 temp.insert(Color.randomBlue())
             }
@@ -279,7 +313,7 @@ final class GameViewModel: ObservableObject {
             while temp2.count < 8 {
                 temp2.insert(Color.randomYellow())
             }
-
+            
             tempArray2 = Array(temp2)
             
             for i in 0...7 {
@@ -287,7 +321,7 @@ final class GameViewModel: ObservableObject {
             }
             tempArray.shuffle()
             return tempArray
-            }
+        }
     }
     
     func changeForm() {
@@ -378,7 +412,7 @@ final class GameViewModel: ObservableObject {
         temp.shuffle()
         return temp
     }
-
+    
     
     func restartGame() {
         numberOfLives = 3

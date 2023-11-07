@@ -50,6 +50,7 @@ final class GameViewModel: ObservableObject {
     var tempArray2: [Color] = []
     var randomSet = 0
     var rightBlindnessPallete: [Color] = []
+    var tryCount = 0
     
     
     init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {
@@ -136,7 +137,17 @@ final class GameViewModel: ObservableObject {
                 maxStreaks[mode]?[difficulty] = streak
             }
         } else {
+            if tryCount < 3 { tryCount += 1 }
             AudioServicesPlaySystemSound(1100)
+            if tryCount == 3 {
+                tryCount = 0
+                if ((mode == .colorBlindTest) && (isRightPallete == false)) {
+                    alertText = "You'd have your eyes checked!"
+                    showingBlindnessAlert = true
+                }
+            }
+            
+            
             streak = 0
             numberOfLives -= 1
             if numberOfLives == 0 {

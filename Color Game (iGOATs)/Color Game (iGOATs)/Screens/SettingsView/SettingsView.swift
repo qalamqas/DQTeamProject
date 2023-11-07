@@ -9,7 +9,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
-
+    @State private var mode: Mode = .colorMindGame
+    @State private var difficulty: Difficulty = .easy1
+    @State private var blindnessType: BlindnessType = .blue_yellow
+    
     var body: some View {
         NavigationView {
             ZStack {

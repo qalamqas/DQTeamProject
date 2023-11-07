@@ -29,15 +29,14 @@ struct InitView: App {
                             ProfileAssembly().build()
                         case .gameView(let mode, let difficulty, let blindnessType):
                             GameAssembly().build(for: mode, difficulty: difficulty, blindnessType: blindnessType)
-                                //.environmentObject(gameViewModel)
                         case .tabBar:
                             TabBarAssembly().build()
                         }
                     }
             }
             .preferredColorScheme(.light)
-            .environmentObject(gameViewModel)
-            .environmentObject(settingsViewModel)
+//            .environmentObject(gameViewModel)
+//            .environmentObject(settingsViewModel)
         }
     }
 }

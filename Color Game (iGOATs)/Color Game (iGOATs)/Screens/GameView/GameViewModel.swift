@@ -102,7 +102,7 @@ final class GameViewModel: ObservableObject {
                 streak += 1
                 wonRounds += 1
                 isTimeFrozen = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     self.startRound()
                     self.isTimeFrozen = false
                 }
@@ -205,7 +205,7 @@ final class GameViewModel: ObservableObject {
             case 4: tempArray = Array(set4)
             default: tempArray = Array(set0)
             }
-            result = hard3(colors: tempArray)
+            result = hard(colors: tempArray)
         }
         
         return result
@@ -336,29 +336,14 @@ final class GameViewModel: ObservableObject {
         return temp
     }
     
-    func hard1(colors: [Color]) -> [Color] {
-        var temp = Array(colors.prefix(24))
+    func hard(colors: [Color]) -> [Color] {
+        var temp = Array(colors.prefix(16))
         temp.shuffle()
-        temp[23] = temp[22]
-        temp.shuffle()
-        return temp
-    }
-    
-    func hard2(colors: [Color]) -> [Color] {
-        var temp = Array(colors.prefix(24))
-        temp.shuffle()
-        temp[23] = temp[22]
+        temp[15] = temp[14]
         temp.shuffle()
         return temp
     }
-    
-    func hard3(colors: [Color]) -> [Color] {
-        var temp = Array(colors.prefix(24))
-        temp.shuffle()
-        temp[23] = temp[22]
-        temp.shuffle()
-        return temp
-    }
+
     
     func restartGame() {
         numberOfLives = 3

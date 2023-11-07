@@ -10,7 +10,7 @@ import SwiftUI
 struct GameView: View {
     
     @EnvironmentObject var gameViewModel: GameViewModel
-    @ObservedObject var ViewModel: GameViewModel
+    @ObservedObject var viewModel: GameViewModel
     
     @State var heartSelected = false
     @State var squareSelected = true

@@ -55,6 +55,7 @@ struct ProfileView: View {
                                 pickedImage in
                                 if let imageData = pickedImage?.jpegData(compressionQuality: 1.0) {
                                     UserDefaults.standard.setProfileImage(imageData)
+                                    UserDefaults.standard.synchronize()
                                 }
                             }
                         }
@@ -62,6 +63,8 @@ struct ProfileView: View {
                         TextField("Player name", text: $playerName, onEditingChanged: { isEditing in
                             if !isEditing {
                                 UserDefaults.standard.setPlayerName(playerName)
+                                UserDefaults.standard.synchronize()
+
                             }
                         })
                             .font(.title)

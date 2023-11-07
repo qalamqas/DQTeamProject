@@ -29,7 +29,7 @@ struct InitView: App {
                             ProfileAssembly().build()
                         case .gameView(let mode, let difficulty, let blindnessType):
                             GameAssembly().build(for: mode, difficulty: difficulty, blindnessType: blindnessType)
-                                .environmentObject(gameViewModel)
+                                //.environmentObject(gameViewModel)
                         case .tabBar:
                             TabBarAssembly().build()
                         }

@@ -11,6 +11,7 @@ import SwiftUI
 final class GameAssembly {
     func build(for mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType) -> GameView {
         let router = Router.shared
-        return GameView()
+        //return GameView()
+        return GameView(viewModel: viewModel)
     }
 }

@@ -102,7 +102,7 @@ struct SettingsView: View {
                     
                     
                     Button(action: {
-                        settingsViewModel.gamesPlayed += 1
+                        //settingsViewModel.gamesPlayed += 1
                         Router.shared.showGameView(mode: viewModel.mode, difficulty: viewModel.difficulty, blindnessType: viewModel.blindnessType)
                     }) {
                         HStack{

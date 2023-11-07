@@ -9,6 +9,8 @@ import Foundation
 
 final class SettingsAssembly {
     func build() -> SettingsView {
-        return SettingsView()
+        let router = Router.shared
+        let viewModel = SettingsViewModel(router: router)
+        return SettingsView(viewModel: viewModel)
     }
 }

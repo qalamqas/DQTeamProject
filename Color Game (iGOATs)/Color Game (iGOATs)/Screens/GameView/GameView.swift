@@ -131,7 +131,7 @@ struct GameView: View {
                     }
                 }
 
-            }
+            }.frame(width: 300, height: 350)
         }
         .alert(item: $gameViewModel.alert) { alert in
             Alert(

@@ -207,18 +207,22 @@ final class GameViewModel: ObservableObject {
     func colorBlind(blindnessType: BlindnessType) -> [Color] {
         shapeCount = 16
         columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        
         switch blindnessType {
         case .red_green:
+            colorblindText = "Find duplicated color in RED shades"
+            colorblindTextColor = Color(red: 0, green: 1, blue: 0)
             while temp.count < 8 {
                 temp.insert(Color.randomRed())
             }
             tempArray = Array(temp)
             tempArray[7] = tempArray[6]
+            rightBlindnessPallete = tempArray
             
             while temp2.count < 8 {
                 temp2.insert(Color.randomGreen())
             }
-            
+
             tempArray2 = Array(temp2)
             
             for i in 0...7 {
@@ -228,16 +232,20 @@ final class GameViewModel: ObservableObject {
             return tempArray
             
         case .blue_yellow:
+            colorblindText = "Find duplicated color in BLUE shades"
+            colorblindTextColor = Color(red: 0.953125, green: 0.26953125, blue: 0)
+
             while temp.count < 8 {
                 temp.insert(Color.randomBlue())
             }
             tempArray = Array(temp)
             tempArray[7] = tempArray[6]
+            rightBlindnessPallete = tempArray
             
             while temp2.count < 8 {
                 temp2.insert(Color.randomYellow())
             }
-            
+
             tempArray2 = Array(temp2)
             
             for i in 0...7 {
@@ -245,7 +253,7 @@ final class GameViewModel: ObservableObject {
             }
             tempArray.shuffle()
             return tempArray
-        }
+            }
     }
     
     func changeForm() {

@@ -31,7 +31,7 @@ struct SettingsView: View {
                         .frame(height: 40)
                     
                     Button(action: {
-                        viewModel.mode = viewModel.mode.next()
+                        mode = mode.next()
                     }) {
                         HStack{
                             Spacer()
@@ -39,13 +39,14 @@ struct SettingsView: View {
                                 Text(self.modeText(for: mode))
                                     .font(.headline)
                                     .fixedSize(horizontal: true, vertical: true)
-                                Text(viewModel.mode.description)
+                                Text(mode.description)
                                     .fixedSize(horizontal: true, vertical: true)
                             }
                             Spacer()
                             Text(">")
                             Spacer()
                                 .frame(width: 60)
+                        }
                         }
                     }
                     .frame(width: 350, height: 80)

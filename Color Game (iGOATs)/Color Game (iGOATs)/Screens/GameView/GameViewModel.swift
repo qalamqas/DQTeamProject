@@ -75,7 +75,7 @@ final class GameViewModel: ObservableObject {
     }
     
     func startRound() {
-        timeRemaining = 30
+        //timeRemaining = 30
         switch self.difficulty {
         case .babyTime1: shapeCount = 4; columns = Array(repeating: GridItem(.fixed(60)), count: 2)
         case .babyTime2: shapeCount = 9; columns = Array(repeating: GridItem(.fixed(60)), count: 3)
@@ -85,10 +85,12 @@ final class GameViewModel: ObservableObject {
         case .medium1: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .medium2: shapeCount = 20; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         case .medium3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard1: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard2: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
-        case .hard3: shapeCount = 24; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .hard1: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .hard2: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
+        case .hard3: shapeCount = 16; columns = Array(repeating: GridItem(.fixed(60)), count: 4)
         }
+        print(difficulty)
+        print(shapeCount)
         
         self.ifCorrectAnswer = 0
         if self.mode == .colorBlindTest {

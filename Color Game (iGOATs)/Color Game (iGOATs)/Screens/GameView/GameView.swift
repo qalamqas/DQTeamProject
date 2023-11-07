@@ -24,14 +24,17 @@ struct GameView: View {
                 Text("Mode: \(gameViewModel.mode.descriptionScreen)")
                     .bold()
                     .font(.title)
+                    .foregroundColor(Color(red: 0.988281, green: 0.855469, blue: 0.867188))
                 
                 if gameViewModel.mode == .colorMindGame { Text("Difficulty: \(gameViewModel.difficulty.description)")
                         .bold()
                         .padding(.bottom, 5)
+                        .foregroundColor(Color(red: 0.988281, green: 0.855469, blue: 0.867188))
                 }
                 if gameViewModel.mode == .colorBlindTest { Text("Blindness type: \(gameViewModel.blindnessType.description)")
                         .bold()
                         .padding(.bottom, 5)
+                        .foregroundColor(Color(red: 0.988281, green: 0.855469, blue: 0.867188))
                 }
                 VStack() {
                     Text("Round: \(gameViewModel.wonRounds)")
@@ -131,7 +134,7 @@ struct GameView: View {
                     GeometryReader { geometry in
                         RoundedRectangle(cornerRadius: 30)
                             .fill(Color.white)
-                            .frame(width: geometry.size.width, height: geometry.size.height)
+                            .frame(width: 350, height: geometry.size.height)
                     })
             }
         }

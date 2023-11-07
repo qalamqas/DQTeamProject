@@ -147,17 +147,33 @@ final class GameViewModel: ObservableObject {
             AudioServicesPlaySystemSound(1100)
             if tryCount == 3 {
                 tryCount = 0
+//                if ((mode == .colorBlindTest) && (isRightPallete == false)) {
+//                    alertText = "You'd have your eyes checked!"
+//                    showingBlindnessAlert = true
+//                }
+//                
                 if ((mode == .colorBlindTest) && (isRightPallete == false)) {
-                    alertText = "You'd have your eyes checked!"
-                    showingBlindnessAlert = true
+                    showAlert(
+                        title: "Game Over",
+                        message: "You'd have your eyes checked! May be you're colorblind",
+                        primaryActionTitle: "Restart",
+                        secondaryActionTitle: "Main Menu",
+                        primaryAction: {
+                            self.restartGame()
+                        },
+                        secondaryAction: {
+                            self.returnToMainMenu()
+                        }
+                    )
                 }
+                
             }
             
             
             streak = 0
             numberOfLives -= 1
             totalLostLives += 1
-            if numberOfLives == 0 {
+            if (mode == . colorMindGame && numberOfLives == 0) {
                 showAlert(
                     title: "Game Over",
                     message: "You have run out of lives.",

@@ -61,6 +61,14 @@ final class GameViewModel: ObservableObject {
     
     private func isCorrect(_ index: Int) -> Bool {
         let answer = Bool(colors.filter { $0 == colors[index] }.count > 1)
+        
+        if mode == .colorBlindTest {
+            for i in 0...7 {
+                if colors[index] == rightBlindnessPallete[i] {
+                    isRightPallete = true } else { isRightPallete = false }
+            }
+        }
+        
         if  answer {
             ifCorrectAnswer = 1
             correctColor = colors[index]

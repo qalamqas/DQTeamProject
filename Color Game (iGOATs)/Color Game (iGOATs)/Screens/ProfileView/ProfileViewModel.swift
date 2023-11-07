@@ -8,6 +8,7 @@
 import Foundation
 
 final class ProfileViewModel: ObservableObject {
+    
     private let router: Router
     
     init(router: Router) {

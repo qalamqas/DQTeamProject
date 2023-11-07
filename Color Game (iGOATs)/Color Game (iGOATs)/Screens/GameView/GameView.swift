@@ -8,116 +8,151 @@
 import SwiftUI
 
 struct GameView: View {
-    @ObservedObject var viewModel: GameViewModel
+    
+    @EnvironmentObject var gameViewModel: GameViewModel
+    @ObservedObject var ViewModel: GameViewModel
     
     @State var heartSelected = false
     @State var squareSelected = true
     @State var circleSelected = false
-    @State var timeRemaining = 240
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-//    private let columns = Array(repeating: GridItem(.fixed(60)), count: 2)
-    var body: some View {        
+    
+    var body: some View {
         ZStack {
             BackgroundView()
-            VStack {
-                ZStack {
-                    Image("WhiteSquare")
-                        .resizable()
-                        .frame(height: 515)
-                        .cornerRadius(30)
-                    VStack {
-                        if viewModel.mode == .colorMindGame {
-                            Text("Time: \(timeRemaining) sec")
-                                .foregroundColor(Color(red: 1, green: 0.25, blue: 0.25))
-                                .bold(true)
-                                .onReceive(timer) { _ in
-                                    if timeRemaining > 0 {
-                                        timeRemaining -= 1
+            LazyVStack {
+                Text("Mode: \(gameViewModel.mode.descriptionScreen)")
+                    .bold()
+                    .font(.title)
+                
+                if gameViewModel.mode == .colorMindGame { Text("Difficulty: \(gameViewModel.difficulty.description)")
+                        .bold()
+                        .padding(.bottom, 5)
+                }
+                if gameViewModel.mode == .colorBlindTest { Text("Blindness type: \(gameViewModel.blindnessType.description)")
+                        .bold()
+                        .padding(.bottom, 5)
+                }
+                VStack() {
+                    Text("Round: \(gameViewModel.wonRounds)")
+                        .font(.headline)
+                    if gameViewModel.mode == .colorMindGame {
+                        Text("Time: \(gameViewModel.timeRemaining) sec")
+                            .foregroundColor(Color(red: 1, green: 0.25, blue: 0.25))
+                            .bold(true)
+                            .onReceive(gameViewModel.timer) { _ in
+                                if !gameViewModel.isTimeFrozen {
+                                    if gameViewModel.timeRemaining > 0 {
+                                        gameViewModel.timeRemaining -= 1
+                                    }
+                                    else if gameViewModel.timeRemaining == 0 {
+                                        gameViewModel.timer = Timer.publish(every: .infinity, on: .main, in: .common).autoconnect()
+                                        gameViewModel.showAlert(
+                                            title: "Time's Up!",
+                                            message: "Choose an option",
+                                            primaryActionTitle: "Restart",
+                                            secondaryActionTitle: "Main Menu",
+                                            primaryAction: {
+                                                gameViewModel.restartGame()
+                                            },
+                                            secondaryAction: {
+                                                gameViewModel.returnToMainMenu()
+                                            }
+                                        )
                                     }
                                 }
-                        }
-                        Text("Mode: \(viewModel.mode.descriptionScreen)")
-                            .bold()
-                            //.padding(.bottom, 7)
-                        if viewModel.mode == .colorMindGame { Text("Difficulty: \(viewModel.difficulty.description)")
-                                .bold()
-                            .padding(.bottom, 5)
-                        }
-                        if viewModel.mode == .colorBlindTest {Text("Blindness type: \(viewModel.blindnessType.description)")
-                                .bold()
-                            .padding(.bottom, 5)
-                        }
+                            }
+                    }
+                    Text("Streak: \(gameViewModel.streak)")
+                    LazyVGrid(columns: gameViewModel.columns) {
                         
-//                        Spacer()
-//                        .frame(height: 30)
-                        LazyVGrid(columns: viewModel.columns) {
-                            
-                            ForEach(0...viewModel.shapeCount - 1, id: \.self) { index in
-                                Button("") {
-                                    viewModel.proceedUserInput(index)
+                        ForEach(0...gameViewModel.shapeCount - 1, id: \.self) { index in
+                            Button("") {
+                                gameViewModel.proceedUserInput(index)
+                            }
+                            .buttonStyle(ColorButtonStyle(background: gameViewModel.colors[index], shapeType: gameViewModel.buttonShape, isBorder: false))
+                            .overlay { if index == gameViewModel.pressedButtonIndex {
+                                switch gameViewModel.ifCorrectAnswer {
+                                case 0: Text("")
+                                case 1: Text("❤️")
+                                case 2: Text("💔")
+                                default: Text("")
                                 }
-                                .buttonStyle(ColorButtonStyle(background: viewModel.colors[index], shapeType: viewModel.buttonShape, isBorder: false))
-                                .overlay { if index == viewModel.pressedButtonIndex {
-                                    switch viewModel.ifCorrectAnswer {
-                                    case 0: Text("")
-                                    case 1: Text("❤️")
-                                    case 2: Text("💔")
-                                    default: Text("")
-                                    }
-                                } else { Text("") }
-                                }
-                                .overlay {
-                                    if viewModel.ifCorrectAnswer == 1 {
-                                        if viewModel.colors[index] == viewModel.correctColor {
-                                            Text("❤️")
-                                        }
+                            } else { Text("") }
+                            }
+                            .overlay {
+                                if gameViewModel.ifCorrectAnswer == 1 {
+                                    if gameViewModel.colors[index] == gameViewModel.correctColor {
+                                        Text("❤️")
                                     }
                                 }
-                                .disabled(viewModel.ifCorrectAnswer == 1)
                             }
-                            
-                            LazyHStack {
-                                Button(action: {
-                                    heartSelected.toggle()
-                                    squareSelected = false
-                                    circleSelected = false
-                                    viewModel.buttonShape = .heart
-                                }) {
-                                    Image(systemName: heartSelected ? "heart.fill" : "heart")
-                                }
-                                Button(action: {
-                                    squareSelected.toggle()
-                                    heartSelected = false
-                                    circleSelected = false
-                                    viewModel.buttonShape = .square
-                                }) {
-                                    Image(systemName: squareSelected ? "square.fill" : "square")
-                                }
-                                Button(action: {
-                                    circleSelected.toggle()
-                                    heartSelected = false
-                                    squareSelected = false
-                                    viewModel.buttonShape = .circle
-                                }) {
-                                    Image(systemName: circleSelected ? "circle.fill" : "circle")
-                                    
-                                }
-                            }
-                            
+                            .disabled(gameViewModel.ifCorrectAnswer == 1)
                         }
                     }
+                    HStack {
+                        HStack {
+                            Button(action: {
+                                heartSelected.toggle()
+                                squareSelected = false
+                                circleSelected = false
+                                gameViewModel.buttonShape = .heart
+                            }) {
+                                Image(systemName: heartSelected ? "heart.fill" : "heart")
+                            }
+                            Button(action: {
+                                squareSelected.toggle()
+                                heartSelected = false
+                                circleSelected = false
+                                gameViewModel.buttonShape = .square
+                            }) {
+                                Image(systemName: squareSelected ? "square.fill" : "square")
+                            }
+                            Button(action: {
+                                circleSelected.toggle()
+                                heartSelected = false
+                                squareSelected = false
+                                gameViewModel.buttonShape = .circle
+                            }) {
+                                Image(systemName: circleSelected ? "circle.fill" : "circle")
+                                
+                            }
+                        }
+                        HStack {
+                            ForEach(0..<gameViewModel.numberOfLives, id: \.self) { _ in
+                                Image(systemName: "heart.fill")
+                                    .foregroundColor(Color.red)
+                            }
+                        }
+                        .padding()
+                    }
                 }
-                .frame(width: 300, height: 350)
+                .background(
+                    GeometryReader { geometry in
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Color.white)
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                    })
             }
+        }
+        .alert(item: $gameViewModel.alert) { alert in
+            Alert(
+                title: Text(alert.title),
+                message: Text(alert.message),
+                primaryButton: .default(Text(alert.primaryActionTitle), action: alert.primaryAction),
+                secondaryButton: .default(Text(alert.secondaryActionTitle), action: alert.secondaryAction)
+            )
         }
     }
 }
 
 
 
+
+
+
 //struct AboutProgram_Previews: PreviewProvider {
 //    static var previews: some View {
-//        GameAssembly().build(for: .colorMindGame, difficulty: .easy, blindnessType: .blue_yellow)
+//        GameAssembly().build(for: .colorMindGame, difficulty: .babyTime1, blindnessType: .blue_yellow)
 //    }
 //}

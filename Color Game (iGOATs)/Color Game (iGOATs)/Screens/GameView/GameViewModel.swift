@@ -7,13 +7,15 @@
 
 import SwiftUI
 import AVFoundation
+import Foundation
 
-class GameViewModel: ObservableObject {
+final class GameViewModel: ObservableObject {
     private let router: Router
     
     private var gameView: GameView?
     
     @State private var player: AVAudioPlayer?
+    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @Published var colors: [Color] = []
     @Published var mode: Mode
@@ -26,26 +28,33 @@ class GameViewModel: ObservableObject {
     @Published var correctColor: Color?
     @Published var columns = Array(repeating: GridItem(.fixed(60)), count: 4)
     @Published var isPaused = false
+    @Published var numberOfLives = 3
+    @Published var isGameOver = false
+    @Published var alert: AlertItem? = nil
+    @Published var timeRemaining = 30
+    @Published var isTimeFrozen = false
+    @Published var streak = 0
+    @Published var wonRounds = 0
+    @Published var maxRounds: [Mode: [Difficulty: Int]] = [:]
+    @Published var maxStreaks: [Mode: [Difficulty: Int]] = [:]
+    @Published var shapeCount = 0
+    
     var temp: Set<Color> = []
     var temp2: Set<Color> = []
     var tempArray: [Color] = []
     var tempArray2: [Color] = []
     var randomSet = 0
     
-    @Published var shapeCount = 0 {
-        didSet {
-            print("shapeCount = \(shapeCount)")
-        }
-    }
-
+    
     init(mode: Mode, difficulty: Difficulty, blindnessType: BlindnessType, router: Router) {
         self.router = router
         self.mode = mode
         self.difficulty = difficulty
         self.blindnessType = blindnessType
-
+        maxStreaks[mode] = [difficulty: 0]
         startGame()
     }
+    
     
     private func isCorrect(_ index: Int) -> Bool {
         let answer = Bool(colors.filter { $0 == colors[index] }.count > 1)
@@ -58,10 +67,12 @@ class GameViewModel: ObservableObject {
     }
     
     func startGame() {
+        wonRounds = 0
         startRound()
     }
     
     func startRound() {
+        timeRemaining = 30
         switch self.difficulty {
         case .babyTime1: shapeCount = 4; columns = Array(repeating: GridItem(.fixed(60)), count: 2)
         case .babyTime2: shapeCount = 9; columns = Array(repeating: GridItem(.fixed(60)), count: 3)
@@ -86,15 +97,46 @@ class GameViewModel: ObservableObject {
     
     func proceedUserInput(_ index: Int) {
         if isCorrect(index) {
-            if difficulty != .hard3 {difficulty = difficulty.next()}
             AudioServicesPlaySystemSound(1109)
             withAnimation(.bouncy(duration: 0.2, extraBounce: 0.2)) {
+                streak += 1
+                wonRounds += 1
+                isTimeFrozen = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.startRound()
+                    self.isTimeFrozen = false
                 }
+            }
+            if streak % 3 == 0 && numberOfLives < 3 {
+                numberOfLives += 1
+            }
+            
+            let currentRecord = maxRounds[mode]?[difficulty] ?? 0
+               if wonRounds > currentRecord {
+                   maxRounds[mode]?[difficulty] = wonRounds
+               }
+            
+            if streak > maxStreaks[mode]?[difficulty] ?? 0 {
+                maxStreaks[mode]?[difficulty] = streak
             }
         } else {
             AudioServicesPlaySystemSound(1100)
+            streak = 0
+            numberOfLives -= 1
+            if numberOfLives == 0 {
+                showAlert(
+                    title: "Game Over",
+                    message: "You have run out of lives.",
+                    primaryActionTitle: "Restart",
+                    secondaryActionTitle: "Main Menu",
+                    primaryAction: {
+                        self.restartGame()
+                    },
+                    secondaryAction: {
+                        self.returnToMainMenu()
+                    }
+                )
+            }
         }
     }
     
@@ -105,7 +147,7 @@ class GameViewModel: ObservableObject {
         var set3: Set<Color> = []
         var set4: Set<Color> = []
         let result: [Color]
- 
+        
         while set0.count < 24 {
             set0.insert(Color.random())
         }
@@ -123,37 +165,37 @@ class GameViewModel: ObservableObject {
         }
         
         switch difficulty {
-        case .babyTime1: 
+        case .babyTime1:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = babyTime1(colors: tempArray)
-        case .babyTime2: 
+        case .babyTime2:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = babyTime2(colors: tempArray)
-        case .easy1: 
+        case .easy1:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy1(colors: tempArray)
-        case .easy2: 
+        case .easy2:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy2(colors: tempArray)
-        case .easy3: 
+        case .easy3:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = easy3(colors: tempArray)
-        case .medium1: 
+        case .medium1:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium1(colors: tempArray)
-        case .medium2: 
+        case .medium2:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium2(colors: tempArray)
-        case .medium3: 
+        case .medium3:
             tempArray = Array(set0.union(set1).union(set2).union(set3).union(set4))
             result = medium3(colors: tempArray)
-        case .hard1: 
+        case .hard1:
             tempArray = Array(set1.union(set2).union(set3))
             result = hard1(colors: tempArray)
-        case .hard2: 
+        case .hard2:
             tempArray = Array(set2.union(set4))
             result = hard2(colors: tempArray)
-        case .hard3: 
+        case .hard3:
             randomSet = Int.random(in: 1...4);
             print(randomSet)
             switch randomSet {
@@ -183,7 +225,7 @@ class GameViewModel: ObservableObject {
             while temp2.count < 8 {
                 temp2.insert(Color.randomGreen())
             }
-
+            
             tempArray2 = Array(temp2)
             
             for i in 0...7 {
@@ -202,7 +244,7 @@ class GameViewModel: ObservableObject {
             while temp2.count < 8 {
                 temp2.insert(Color.randomYellow())
             }
-
+            
             tempArray2 = Array(temp2)
             
             for i in 0...7 {
@@ -210,7 +252,7 @@ class GameViewModel: ObservableObject {
             }
             tempArray.shuffle()
             return tempArray
-            }
+        }
     }
     
     func changeForm() {
@@ -220,7 +262,7 @@ class GameViewModel: ObservableObject {
                 isBorder = true
             } else if gameView.squareSelected {
                 buttonShape = .square
-                isBorder = true 
+                isBorder = true
             } else if gameView.circleSelected {
                 buttonShape = .circle
                 isBorder = true
@@ -317,5 +359,28 @@ class GameViewModel: ObservableObject {
         temp.shuffle()
         return temp
     }
-
+    
+    func restartGame() {
+        numberOfLives = 3
+        timeRemaining = 30
+        timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+        startGame()
+        isGameOver = false
+    }
+    
+    func returnToMainMenu() {
+        Router.shared.showSettings()
+    }
+    
+    func showAlert(title: String, message: String, primaryActionTitle: String, secondaryActionTitle: String, primaryAction: @escaping () -> Void, secondaryAction: @escaping () -> Void) {
+        let alertItem = AlertItem(
+            title: title,
+            message: message,
+            primaryActionTitle: primaryActionTitle,
+            secondaryActionTitle: secondaryActionTitle,
+            primaryAction: primaryAction,
+            secondaryAction: secondaryAction
+        )
+        self.alert = alertItem
+    }
 }

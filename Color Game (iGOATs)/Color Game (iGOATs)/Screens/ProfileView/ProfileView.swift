@@ -8,9 +8,11 @@
 import SwiftUI
 import UIKit
 import Photos
+import Foundation
 
 struct ProfileView: View {
     @ObservedObject var viewModel: ProfileViewModel
+    @EnvironmentObject var gameViewModel: GameViewModel
     @EnvironmentObject var settingsViewModel: SettingsViewModel
     @State var selectedImage: UIImage?
     @State private var isImagePickerPresented = false
@@ -19,68 +21,164 @@ struct ProfileView: View {
     var body: some View {
         ZStack {
             ProfileBackgroundView()
-            LazyVStack(alignment: .center) {
-                if let image = selectedImage {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 150, height: 150)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.blue, lineWidth: 5))
-                        .padding(.top, 20)
-                } else {
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 150, height: 150)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.blue, lineWidth: 5))
-                        .padding(.top, 20)
+            ScrollView(.vertical) {
+                LazyVStack {
+                    Spacer()
+                        .frame(height: 70)
+                    ScrollView {
+                        if let image = selectedImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 150)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.blue, lineWidth: 5))
+                                .padding(.top, 20)
+                        } else {
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 150)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.blue, lineWidth: 5))
+                                .padding(.top, 20)
+                        }
+                        
+                        Button("Pick the photo") {
+                            isImagePickerPresented = true
+                        }
+                        .sheet(isPresented: $isImagePickerPresented) {
+                            ImagePicker(selectedImage: $selectedImage)
+                        }
+                        
+                        TextField("Player name", text: $playerName)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(.top, 10)
+                            .multilineTextAlignment(.center)
+                        
+                        
+                        Text("Games played: \(settingsViewModel.gamesPlayed)")
+                            .font(.headline)
+                            .padding(.top, 5)
+                        
+                        Text("Total number of round wins: 75")
+                            .font(.headline)
+                            .padding(.top, 5)
+                        
+                        Text("Total number of lost lives: 30")
+                            .font(.headline)
+                            .padding(.top, 5)
+                        
+                        Text("Records (Rounds)")
+                            .font(.headline)
+                            .padding(.top, 5)
+                            .padding(.bottom, 5)
+                        
+                        Grid {
+                            GridRow {
+                                Text("Difficulty")
+                                    .bold()
+                                Text("1")
+                                    .bold()
+                                Text("2")
+                                    .bold()
+                                Text("3")
+                                    .bold()
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Baby-Time")
+                                    .bold()
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.babyTime1] ?? 0)")
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.babyTime2] ?? 0)")
+                                Text("0")
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Easy")
+                                    .bold()
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.easy1] ?? 0)")
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.easy2] ?? 0)")
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.easy3] ?? 0)")
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Medium")
+                                    .bold()
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.medium1] ?? 0)")
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.medium2] ?? 0)")
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.medium3] ?? 0)")
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Hard")
+                                    .bold()
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.hard1] ?? 0)")
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.hard2] ?? 0)")
+                                Text("\(gameViewModel.maxRounds[.colorMindGame]?[.hard3] ?? 0)")
+                            }
+                        }
+                        
+                        Text("Records (Streak)")
+                            .font(.headline)
+                            .padding(.top, 5)
+                            .padding(.bottom, 5)
+                        
+                        Grid {
+                            GridRow {
+                                Text("Difficulty")
+                                    .bold()
+                                Text("1")
+                                    .bold()
+                                Text("2")
+                                    .bold()
+                                Text("3")
+                                    .bold()
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Baby-Time")
+                                    .bold()
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.babyTime1] ?? 0)")
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.babyTime2] ?? 0)")
+                                Text("0")
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Easy")
+                                    .bold()
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.easy1] ?? 0)")
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.easy2] ?? 0)")
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.easy3] ?? 0)")
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Medium")
+                                    .bold()
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.medium1] ?? 0)")
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.medium2] ?? 0)")
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.medium3] ?? 0)")
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Hard")
+                                    .bold()
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.hard1] ?? 0)")
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.hard2] ?? 0)")
+                                Text("\(gameViewModel.maxStreaks[.colorMindGame]?[.hard3] ?? 0)")
+                            }
+                        }
+                    }
+                    .frame(height: 500)
                 }
-                
-                Button("Pick the photo") {
-                    isImagePickerPresented = true
-                }
-                .sheet(isPresented: $isImagePickerPresented) {
-                    ImagePicker(selectedImage: $selectedImage)
-                }
-                
-                TextField("Player name", text: $playerName)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top, 10)
-                    .multilineTextAlignment(.center)
-                
-                Text("Games played: \(settingsViewModel.gamesPlayed)")
-                    .font(.headline)
-                    .padding(.top, 5)
-                
-                Text("Total number of victories: 75")
-                    .font(.headline)
-                    .padding(.top, 5)
-                
-                Text("Total number of defeats: 30")
-                    .font(.headline)
-                    .padding(.top, 5)
-                
-                Text("Record of victories without defeats in easy mode: 25")
-                    .font(.headline)
-                    .padding(.top, 5)
-                    .multilineTextAlignment(.center)
-                
-                Text("Record of victories without defeats in medium mode: 25")
-                    .font(.headline)
-                    .padding(.top, 5)
-                    .multilineTextAlignment(.center)
-                
-                Text("Record of victories without defeats in hard mode: 25")
-                    .font(.headline)
-                    .padding(.top, 5)
-                    .multilineTextAlignment(.center)
             }
-            .padding()
-            .foregroundColor(Color(red: 0.0546875, green: 0.046875, blue: 0.1953125))
         }
     }
 }
 
+//struct ProfileView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileAssembly().build()
+//    }
+//}
